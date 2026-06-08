@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZINNÁTI — Timeless Knitwear · Премиальный трикотаж</title>
+<meta name="description" content="ZINNÁTI — премиальный трикотаж ручной работы. Создано женщинами для женщин. Индивидуальная примерка в Астане, доставка по миру.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #f5f0ea;
+    --cream-deep: #ece3d8;
+    --ivory: #fffdf9;
+    --wine: #7a3142;          /* brand wine (was rose) */
+    --wine-deep: #5d2433;     /* deep brand wine */
+    --wine-soft: #e3cdd4;     /* soft wine tint */
+    --blue: #93b4cf;          /* dusty logo blue (accent / "new") */
+    --blue-deep: #6c95b5;
+    --charcoal: #2c2429;      /* deep aubergine ink */
+    --ash: #6f6660;
+    --line: #e6ddd1;
+    --gold: #b89968;
+
+    --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+    --sans: 'Manrope', -apple-system, sans-serif;
+
+    --shadow-sm: 0 2px 12px rgba(44, 36, 41, 0.06);
+    --shadow-md: 0 8px 32px rgba(44, 36, 41, 0.12);
+    --shadow-lg: 0 24px 64px rgba(44, 36, 41, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--charcoal);
+    background: var(--cream);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+  /* ============ HEADER ============ */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(245, 240, 234, 0.92);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent; transition: all 0.4s ease;
+  }
+  header.scrolled { border-bottom-color: var(--line); background: rgba(255, 253, 249, 0.95); }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+
+  .logo {
+    font-family: var(--serif);
+    font-size: 30px; font-weight: 600;
+    letter-spacing: 0.34em; padding-left: 0.34em;
+    color: var(--charcoal); line-height: 1; white-space: nowrap;
+  }
+  .logo span { color: var(--wine); }
+  .logo small {
+    display: block; font-family: var(--sans); font-weight: 500;
+    font-size: 8px; letter-spacing: 0.42em; padding-left: 0.42em;
+    color: var(--ash); margin-top: 5px; text-transform: uppercase;
+  }
+
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--charcoal); font-weight: 500; position: relative; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--wine); }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--wine); transition: width 0.3s;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-actions { display: flex; align-items: center; gap: 24px; }
+  .nav-phone {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 500; color: var(--charcoal); transition: color 0.2s;
+  }
+  .nav-phone:hover { color: var(--wine); }
+  .nav-phone svg { width: 16px; height: 16px; }
+
+  .cart-btn {
+    position: relative; width: 42px; height: 42px; display: grid; place-items: center;
+    border: 1px solid var(--line); border-radius: 50%; transition: all 0.2s;
+  }
+  .cart-btn:hover { border-color: var(--wine); background: var(--ivory); }
+  .cart-btn svg { width: 18px; height: 18px; }
+  .cart-count {
+    position: absolute; top: -4px; right: -4px; width: 18px; height: 18px;
+    background: var(--wine); color: white; border-radius: 50%;
+    font-size: 11px; font-weight: 600; display: grid; place-items: center;
+    opacity: 0; transform: scale(0); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .cart-count.active { opacity: 1; transform: scale(1); }
+
+  .menu-toggle { display: none; width: 28px; height: 20px; position: relative; }
+  .menu-toggle span {
+    position: absolute; left: 0; width: 100%; height: 1px;
+    background: var(--charcoal); transition: 0.3s;
+  }
+  .menu-toggle span:nth-child(1) { top: 0; }
+  .menu-toggle span:nth-child(2) { top: 50%; }
+  .menu-toggle span:nth-child(3) { bottom: 0; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative; min-height: 100vh; display: flex; align-items: center;
+    padding-top: 80px; overflow: hidden;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px;
+    align-items: center; width: 100%;
+  }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ash); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
+  }
+  .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--wine); }
+  .hero-title {
+    font-size: clamp(48px, 6.5vw, 92px); line-height: 0.95; margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--wine); font-weight: 300; }
+  .hero-desc {
+    font-size: 17px; line-height: 1.6; color: var(--ash); max-width: 460px;
+    margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px; padding: 18px 32px;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 100px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--wine); color: var(--cream); }
+  .btn-primary:hover { background: var(--wine-deep); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn-ghost { border-color: var(--charcoal); color: var(--charcoal); }
+  .btn-ghost:hover { background: var(--charcoal); color: var(--cream); }
+  .btn svg { width: 16px; height: 16px; }
+
+  .hero-image { position: relative; height: 80vh; max-height: 720px; opacity: 0; animation: fadeIn 1.2s 0.3s forwards; }
+  .hero-image-main {
+    position: absolute; inset: 0;
+    background: #f3eee7 url('images/facet.jpg') center/cover;
+    border-radius: 4px; box-shadow: var(--shadow-lg);
+  }
+  .hero-caption {
+    position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 4;
+    background: rgba(93, 36, 51, 0.92); color: var(--cream);
+    font-family: var(--serif); font-style: italic; font-size: clamp(17px, 2.3vw, 25px);
+    letter-spacing: 0.02em; padding: 12px 28px; border-radius: 100px;
+    box-shadow: var(--shadow-md); white-space: nowrap; backdrop-filter: blur(4px);
+  }
+  .hero-stat {
+    position: absolute; top: 40px; right: -32px; background: var(--ivory);
+    padding: 20px 28px; border-radius: 4px; box-shadow: var(--shadow-md); z-index: 3;
+  }
+  .hero-stat-number { font-family: var(--serif); font-size: 36px; color: var(--wine); line-height: 1; margin-bottom: 4px; }
+  .hero-stat-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ash); }
+  .hero-decor {
+    position: absolute; font-family: var(--serif); font-style: italic; color: var(--wine-soft);
+    pointer-events: none; user-select: none; z-index: 0;
+  }
+  .hero-decor.top { top: 100px; right: 5%; font-size: 200px; opacity: 0.4; }
+
+  /* ============ TRUST STRIP ============ */
+  .trust { padding: 80px 0; background: var(--ivory); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
+  .trust-item { text-align: center; padding: 0 16px; border-right: 1px solid var(--line); }
+  .trust-item:last-child { border-right: none; }
+  .trust-icon { width: 48px; height: 48px; margin: 0 auto 20px; display: grid; place-items: center; color: var(--wine); }
+  .trust-icon svg { width: 100%; height: 100%; stroke-width: 1.2; }
+  .trust-title { font-family: var(--serif); font-size: 22px; margin-bottom: 8px; }
+  .trust-desc { font-size: 13px; color: var(--ash); line-height: 1.5; }
+
+  /* ============ SECTION HEADERS ============ */
+  .section { padding: 120px 0; }
+  .section-header { text-align: center; margin-bottom: 80px; }
+  .section-eyebrow { display: inline-block; font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--wine); margin-bottom: 20px; }
+  .section-title { font-size: clamp(36px, 5vw, 60px); margin-bottom: 20px; }
+  .section-title em { font-style: italic; color: var(--wine); font-weight: 300; }
+  .section-desc { font-size: 16px; color: var(--ash); max-width: 540px; margin: 0 auto; line-height: 1.6; }
+
+  /* ============ CATALOG ============ */
+  .catalog-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+  .capsule-active {
+    align-items: center; gap: 12px; margin: 0 auto 40px;
+    justify-content: center; width: fit-content; padding: 8px 10px 8px 22px;
+    background: var(--wine); color: var(--cream); border-radius: 100px;
+    font-size: 13px; letter-spacing: 0.04em; box-shadow: var(--shadow-sm);
+  }
+  .capsule-active button {
+    width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.18);
+    color: var(--cream); font-size: 13px; line-height: 1; display: grid; place-items: center; transition: background 0.2s;
+  }
+  .capsule-active button:hover { background: rgba(255,255,255,0.32); }
+  .occasion:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+  .tab {
+    padding: 12px 24px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    border: 1px solid var(--line); border-radius: 100px; color: var(--ash); transition: all 0.2s; background: transparent;
+  }
+  .tab:hover { color: var(--charcoal); border-color: var(--charcoal); }
+  .tab.active { background: var(--charcoal); color: var(--cream); border-color: var(--charcoal); }
+
+  .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .product { position: relative; background: var(--ivory); border-radius: 4px; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+  .product:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+  .product-image { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--cream-deep); }
+  .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+  .product:hover .product-image img { transform: scale(1.06); }
+  .product-badge {
+    position: absolute; top: 16px; left: 16px; padding: 6px 12px; background: var(--ivory);
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--wine); border-radius: 100px; font-weight: 500;
+  }
+  .product-badge.new { color: var(--blue-deep); }
+  .product-badge.sale { background: var(--wine); color: var(--cream); }
+
+  /* second photo fades in on hover */
+  .product-image .img-hover {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .product:hover .product-image .img-hover { opacity: 1; }
+
+  /* size chips */
+  .size-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .size-chip {
+    min-width: 34px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 6px;
+    font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--ash);
+    background: var(--ivory); cursor: pointer; transition: all 0.18s;
+  }
+  .size-chip:hover:not(.sold) { border-color: var(--charcoal); color: var(--charcoal); }
+  .size-chip.active { background: var(--charcoal); color: var(--cream); border-color: var(--charcoal); }
+  .size-chip.sold { opacity: 0.4; text-decoration: line-through; cursor: not-allowed; }
+  .cart-item-size { font-size: 11px; letter-spacing: 0.04em; color: var(--ash); margin: 1px 0 5px; }
+
+  /* ---- collection blocks ---- */
+  .collection-block { scroll-margin-top: 96px; }
+  .collection-block + .collection-block { margin-top: 88px; }
+  .collection-head { text-align: center; margin-bottom: 40px; }
+  .collection-tag {
+    display: inline-block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 600; padding: 5px 16px; border-radius: 100px; margin-bottom: 14px;
+  }
+  .collection-tag.new { background: var(--blue); color: #fff; }
+  .collection-tag.sale { background: var(--wine); color: var(--cream); }
+  .collection-title { font-size: clamp(26px, 4vw, 40px); margin-bottom: 8px; }
+  .collection-title em { color: var(--wine); font-style: italic; }
+  .collection-sub { color: var(--ash); font-size: 15px; max-width: 460px; margin: 0 auto; }
+  .collection-empty { text-align: center; color: var(--ash); grid-column: 1 / -1; padding: 32px 0; }
+
+  /* ---- nav catalog dropdown ---- */
+  .nav-dd { position: relative; }
+  .nav-dd-toggle {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--charcoal); font-weight: 500; background: none; border: none; cursor: pointer;
+    font-family: inherit; padding: 0;
+  }
+  .nav-dd-toggle:hover { color: var(--wine); }
+  .nav-dd-toggle svg { width: 14px; height: 14px; transition: transform 0.3s; }
+  .nav-dd.open .nav-dd-toggle { color: var(--wine); }
+  .nav-dd.open .nav-dd-toggle svg { transform: rotate(180deg); }
+  .nav-dd-bar {
+    position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%) translateY(-8px);
+    display: flex; gap: 8px; padding: 8px; background: var(--ivory);
+    border: 1px solid var(--line); border-radius: 100px; box-shadow: var(--shadow-md);
+    opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 120;
+  }
+  .nav-dd.open .nav-dd-bar { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .nav-dd-bar a {
+    display: flex; flex-direction: column; align-items: center; line-height: 1.1;
+    padding: 9px 20px; border-radius: 100px; font-size: 13px; font-weight: 600;
+    color: var(--charcoal); white-space: nowrap; transition: all 0.2s;
+  }
+  .nav-dd-bar a span { font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ash); margin-top: 3px; }
+  .nav-dd-bar a:hover { background: var(--wine); color: var(--cream); }
+  .nav-dd-bar a:hover span { color: var(--wine-soft); }
+  .product-wa {
+    position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; background: var(--ivory);
+    border-radius: 50%; display: grid; place-items: center; color: var(--charcoal);
+    opacity: 0; transform: translateY(-8px); transition: all 0.3s; box-shadow: var(--shadow-sm);
+  }
+  .product:hover .product-wa { opacity: 1; transform: translateY(0); }
+  .product-wa:hover { background: #25D366; color: white; }
+  .product-wa svg { width: 18px; height: 18px; }
+
+  .product-info { padding: 24px 20px; }
+  .product-name { font-family: var(--serif); font-size: 22px; margin-bottom: 6px; line-height: 1.2; }
+  .product-meta { font-size: 12px; color: var(--ash); margin-bottom: 16px; }
+  .product-bottom { display: flex; align-items: center; justify-content: space-between; }
+  .product-price { font-family: var(--serif); font-size: 24px; color: var(--charcoal); font-weight: 500; }
+  .product-price-old { font-size: 14px; color: var(--ash); text-decoration: line-through; margin-right: 8px; font-family: var(--sans); }
+  .add-btn {
+    width: 38px; height: 38px; border: 1px solid var(--charcoal); border-radius: 50%; color: var(--charcoal);
+    display: grid; place-items: center; transition: all 0.2s;
+  }
+  .add-btn:hover { background: var(--charcoal); color: var(--cream); transform: rotate(90deg); }
+  .add-btn svg { width: 16px; height: 16px; }
+  .product-unit-price { font-size: 11px; color: var(--ash); margin-top: 3px; letter-spacing: 0.02em; }
+  .product-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .product-controls .qty { border-radius: 100px; }
+  .product-controls .qty button { width: 26px; height: 26px; font-size: 16px; line-height: 1; }
+  .product-controls .qty span { min-width: 26px; font-size: 13px; }
+
+  /* ============ LOADING STATE ============ */
+  .products-loading {
+    grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; padding: 80px 20px; color: var(--ash); font-size: 14px; letter-spacing: 0.04em;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-spinner { width: 32px; height: 32px; border: 2px solid var(--line); border-top-color: var(--wine); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .products-loading button { margin-top: 4px; padding: 8px 24px; border: 1px solid var(--charcoal); border-radius: 100px; font-size: 13px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+  .products-loading button:hover { background: var(--charcoal); color: var(--cream); }
+
+  /* ============ OUT OF STOCK ============ */
+  .product.out-of-stock .product-image img { opacity: 0.45; }
+  .out-of-stock-overlay { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 20px; }
+  .out-of-stock-overlay span {
+    display: block; width: 100%; background: rgba(44,36,41,0.72); color: #fff; text-align: center;
+    padding: 9px 12px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; border-radius: 4px; backdrop-filter: blur(4px);
+  }
+  .product.out-of-stock .product-controls { opacity: 0.3; pointer-events: none; }
+
+  /* ============ CAPSULES ============ */
+  .occasions { background: var(--cream-deep); padding: 120px 0; }
+  .occasions-grid {
+    display: grid; gap: 24px; height: 580px;
+    grid-template-columns: 1.25fr 1fr 1.25fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "evening office leisure"
+      "evening casual leisure";
+  }
+  .occasions-grid .occasion { aspect-ratio: auto; }
+  .cap-evening { grid-area: evening; }
+  .cap-office  { grid-area: office; }
+  .cap-casual  { grid-area: casual; }
+  .cap-leisure { grid-area: leisure; }
+  .occasion { position: relative; aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; cursor: pointer; }
+  .occasion-img { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+  .occasion:hover .occasion-img { transform: scale(1.06); }
+  .occasion-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(0,0,0,0.6) 100%); }
+  .occasion-content { position: absolute; bottom: 32px; left: 32px; right: 32px; color: white; z-index: 2; }
+  .occasion-title { font-family: var(--serif); font-size: 32px; color: white; margin-bottom: 8px; }
+  .occasion-meta { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.9; }
+  .occasion-arrow {
+    position: absolute; top: 24px; right: 24px; width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); display: grid; place-items: center; color: white; transition: all 0.3s;
+  }
+  .occasion:hover .occasion-arrow { background: white; color: var(--charcoal); }
+  .occasion-arrow svg { width: 16px; height: 16px; }
+  .occasion.large { grid-row: span 2; aspect-ratio: auto; }
+
+  /* ============ ABOUT ============ */
+  .about { padding: 140px 0; background: var(--ivory); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+  .about-images { position: relative; height: 600px; }
+  .about-img-1 { position: absolute; inset: 0; background: #f5ede9 url('images/logo_zinnati_8.jpg') center/contain no-repeat; border-radius: 4px; border: 1px solid var(--line); }
+  .about-text h2 { font-size: clamp(36px, 4vw, 56px); margin-bottom: 32px; }
+  .about-text p { color: var(--ash); margin-bottom: 24px; font-size: 16px; line-height: 1.7; }
+  .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--line); }
+  .stat-num { font-family: var(--serif); font-size: 44px; color: var(--wine); line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash); }
+
+  /* ============ FITTING / DELIVERY ============ */
+  .delivery { background: var(--cream-deep); padding: 120px 0; }
+  .delivery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 80px; }
+  .delivery-card { background: var(--ivory); padding: 48px; border-radius: 4px; }
+  .delivery-card h3 { font-size: 32px; margin-bottom: 32px; }
+  .time-slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+  .slot { padding: 14px; border: 1px solid var(--line); border-radius: 4px; text-align: center; font-size: 14px; color: var(--charcoal); transition: all 0.2s; }
+  .slot:hover { border-color: var(--wine); background: var(--cream); }
+  .delivery-zones { list-style: none; }
+  .delivery-zones li { padding: 16px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 14px; }
+  .delivery-zones li:last-child { border-bottom: none; }
+  .zone-price { font-family: var(--serif); font-size: 18px; color: var(--wine); }
+
+  /* ============ REVIEWS ============ */
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .review { background: var(--ivory); padding: 40px 32px; border-radius: 4px; position: relative; }
+  .review::before { content: '"'; position: absolute; top: -16px; left: 24px; font-family: var(--serif); font-size: 100px; color: var(--wine-soft); line-height: 1; }
+  .review-stars { color: var(--gold); margin-bottom: 16px; font-size: 14px; letter-spacing: 2px; }
+  .review-text { font-family: var(--serif); font-size: 18px; line-height: 1.5; margin-bottom: 24px; font-style: italic; color: var(--charcoal); }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--wine-soft); display: grid; place-items: center; font-family: var(--serif); font-size: 18px; color: var(--wine); font-weight: 500; }
+  .review-name { font-size: 14px; font-weight: 500; }
+  .review-date { font-size: 12px; color: var(--ash); }
+
+  /* ============ CTA ============ */
+  .cta { padding: 140px 0; background: var(--wine-deep); color: var(--cream); text-align: center; position: relative; overflow: hidden; }
+  .cta::before { content: ''; position: absolute; top: -200px; left: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(147,180,207,0.18) 0%, transparent 70%); pointer-events: none; }
+  .cta::after { content: ''; position: absolute; bottom: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(184,153,104,0.16) 0%, transparent 70%); pointer-events: none; }
+  .cta-content { position: relative; z-index: 2; }
+  .cta-title { font-size: clamp(40px, 5vw, 72px); margin-bottom: 24px; }
+  .cta-title em { font-style: italic; color: var(--blue); font-weight: 300; }
+  .cta-desc { font-size: 18px; color: rgba(245, 240, 234, 0.75); max-width: 540px; margin: 0 auto 48px; }
+  .cta .btn-primary { background: var(--cream); color: var(--charcoal); }
+  .cta .btn-primary:hover { background: var(--blue); color: var(--charcoal); }
+
+  /* ============ FOOTER ============ */
+  footer { background: var(--cream-deep); padding: 80px 0 40px; border-top: 1px solid var(--line); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px; }
+  .footer-brand .logo { font-size: 34px; margin-bottom: 20px; display: inline-block; }
+  .footer-brand p { color: var(--ash); font-size: 14px; line-height: 1.7; max-width: 360px; }
+  .footer-col h4 { font-family: var(--sans); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 24px; color: var(--charcoal); font-weight: 600; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; font-size: 14px; color: var(--ash); }
+  .footer-col a { transition: color 0.2s; }
+  .footer-col a:hover { color: var(--wine); }
+  .footer-social { display: flex; gap: 12px; margin-top: 24px; }
+  .social-icon { width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; color: var(--charcoal); transition: all 0.2s; }
+  .social-icon:hover { background: var(--charcoal); color: var(--cream); border-color: var(--charcoal); }
+  .social-icon svg { width: 16px; height: 16px; }
+  .footer-bottom { padding-top: 32px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--ash); }
+
+  /* ============ FLOATING BUTTONS ============ */
+  .floating { position: fixed; bottom: 24px; right: 24px; z-index: 90; display: flex; flex-direction: column; gap: 12px; }
+  .float-btn { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: white; box-shadow: var(--shadow-md); transition: all 0.3s; position: relative; }
+  .float-btn:hover { transform: scale(1.08) translateY(-2px); }
+  .float-btn.wa { background: #25D366; }
+  .float-btn.ig { background: linear-gradient(135deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+  .float-btn svg { width: 26px; height: 26px; }
+  .float-btn::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: inherit; z-index: -1; animation: pulse 2s infinite; opacity: 0.4; }
+  @keyframes pulse { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(1.6); opacity: 0; } }
+
+  /* ============ CART DRAWER ============ */
+  .cart-overlay { position: fixed; inset: 0; background: rgba(44, 36, 41, 0.5); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 480px; max-width: 100vw; background: var(--ivory); z-index: 201; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; }
+  .cart-drawer.open { transform: translateX(0); }
+  .cart-header { padding: 28px 32px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .cart-header h3 { font-size: 28px; margin: 0; }
+  .cart-close { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; color: var(--charcoal); transition: all 0.2s; }
+  .cart-close:hover { background: var(--charcoal); color: var(--cream); }
+  .cart-close svg { width: 16px; height: 16px; }
+  .cart-scroll { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+  .cart-body { padding: 24px 32px; }
+  .cart-empty { text-align: center; padding: 80px 20px; color: var(--ash); }
+  .cart-empty svg { width: 64px; height: 64px; margin: 0 auto 24px; color: var(--wine-soft); stroke-width: 1; }
+  .cart-empty h4 { font-size: 24px; margin-bottom: 8px; color: var(--charcoal); }
+  .cart-empty p { font-size: 14px; }
+  .cart-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: center; }
+  .cart-item-img { width: 80px; height: 100px; background: var(--cream-deep); border-radius: 4px; background-size: cover; background-position: center; }
+  .cart-item-info h5 { font-family: var(--serif); font-size: 18px; margin-bottom: 4px; }
+  .cart-item-price { font-size: 14px; color: var(--ash); margin-bottom: 12px; }
+  .qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; overflow: hidden; }
+  .qty button { width: 28px; height: 28px; color: var(--charcoal); transition: background 0.2s; }
+  .qty button:hover { background: var(--cream); }
+  .qty span { min-width: 28px; text-align: center; font-size: 14px; font-weight: 500; }
+  .cart-item-remove { color: var(--ash); transition: color 0.2s; align-self: start; }
+  .cart-item-remove:hover { color: var(--wine); }
+  .cart-item-remove svg { width: 16px; height: 16px; }
+  .cart-form { padding: 24px 32px; border-top: 1px solid var(--line); background: var(--cream); }
+  .cart-form.hidden { display: none; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash); margin-bottom: 6px; font-weight: 500; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 4px; font-family: var(--sans); font-size: 14px; background: var(--ivory); color: var(--charcoal); transition: border-color 0.2s; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--wine); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .payment-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pay-option { padding: 12px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--ivory); text-align: center; cursor: pointer; font-size: 12px; transition: all 0.2s; }
+  .pay-option.selected { border-color: var(--charcoal); background: var(--charcoal); color: var(--cream); }
+  .promo-row { display: flex; gap: 8px; margin-top: 8px; }
+  .promo-row input {
+    flex: 1; padding: 12px 16px; border: 1px solid var(--line); border-radius: 100px;
+    font-family: inherit; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--ivory); color: var(--charcoal);
+  }
+  .promo-row input:focus { outline: none; border-color: var(--charcoal); }
+  .promo-apply {
+    padding: 12px 20px; border: 1px solid var(--charcoal); background: var(--charcoal); color: var(--cream);
+    border-radius: 100px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; white-space: nowrap;
+  }
+  .promo-apply:hover { background: var(--wine); border-color: var(--wine); }
+  .promo-msg { font-size: 12px; margin: 8px 2px 0; min-height: 0; }
+  .promo-msg.ok { color: #2e7d4f; }
+  .promo-msg.err { color: var(--wine); }
+  .promo-msg .promo-remove { margin-left: 8px; text-decoration: underline; cursor: pointer; color: var(--ash); }
+  .cart-summary { margin-top: 14px; }
+  .cart-summary .sum-row { display: flex; justify-content: space-between; font-size: 14px; color: var(--ash); padding: 4px 0; }
+  .cart-summary .sum-row.discount { color: var(--wine); font-weight: 500; }
+  .cart-total { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0 20px; margin-bottom: 16px; border-top: 1px solid var(--line); margin-top: 8px; }
+  .cart-total-label { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash); }
+  .cart-total-value { font-family: var(--serif); font-size: 32px; color: var(--charcoal); }
+  .cart-submit { width: 100%; padding: 18px; background: var(--wine); color: var(--cream); border-radius: 100px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; transition: all 0.3s; }
+  .cart-submit:hover { background: var(--wine-deep); }
+  .cart-wa-fallback { text-align: center; margin-top: 12px; font-size: 12px; color: var(--ash); }
+  .cart-wa-fallback a { color: var(--wine); text-decoration: underline; }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s, transform 0.8s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column; gap: 4px;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--ivory); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      padding: 16px 32px; box-shadow: var(--shadow-md);
+    }
+    .nav-links.open li { padding: 8px 0; }
+    .nav-links.open .nav-dd-bar { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; border: none; padding: 8px 0 0; background: transparent; justify-content: flex-start; }
+    .menu-toggle { display: block; }
+    .menu-toggle.open span:nth-child(1) { top: 50%; transform: rotate(45deg); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { bottom: auto; top: 50%; transform: rotate(-45deg); }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-image { height: 60vh; }
+    .hero-decor.top { display: none; }
+    .products { grid-template-columns: repeat(3, 1fr); }
+    .occasions-grid { grid-template-columns: repeat(2, 1fr); grid-template-areas: none; grid-template-rows: auto; height: auto; }
+    .occasions-grid .occasion { aspect-ratio: 3/4; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-images { height: 500px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .delivery-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 20px; }
+    .nav { padding: 16px 0; }
+    .nav-phone span { display: none; }
+    .logo { font-size: 24px; }
+    .hero { min-height: auto; padding: 100px 0 60px; }
+    .hero-title { font-size: 48px; }
+    .hero-image { height: 480px; }
+    .hero-stat { right: -16px; padding: 14px 18px; }
+    .hero-stat-number { font-size: 28px; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 16px; }
+    .trust-item:nth-child(2n) { border-right: none; }
+    .trust { padding: 56px 0; }
+    .section { padding: 72px 0; }
+    .section-header { margin-bottom: 48px; }
+    .products { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .product-name { font-size: 18px; }
+    .product-price { font-size: 20px; }
+    .product-info { padding: 16px 14px; }
+    .product-wa { opacity: 1; transform: none; }
+    .occasions-grid { grid-template-columns: 1fr; }
+    .occasions-grid .occasion { aspect-ratio: 4/3; }
+    .occasions { padding: 72px 0; }
+    .about { padding: 72px 0; }
+    .about-images { height: 380px; }
+    .about-stats { gap: 12px; }
+    .stat-num { font-size: 32px; }
+    .delivery-card { padding: 28px 20px; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .cta { padding: 80px 0; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .cart-drawer { width: 100%; }
+    .floating { bottom: 16px; right: 16px; }
+    .float-btn { width: 52px; height: 52px; }
+    .catalog-tabs { gap: 6px; }
+    .tab { padding: 10px 16px; font-size: 11px; }
+  }
+
+  /* ============ CHATBOT ============ */
+  @keyframes chatPulse { 0% { box-shadow: 0 0 0 0 rgba(122,49,66,0.45); } 70% { box-shadow: 0 0 0 14px rgba(122,49,66,0); } 100% { box-shadow: 0 0 0 0 rgba(122,49,66,0); } }
+  @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+  .float-btn.chat { background: var(--wine); color: var(--cream); }
+  .float-btn.chat.pulsing { animation: chatPulse 1s ease-out 3; }
+  .chat-notif-dot { position: absolute; top: 5px; right: 5px; width: 10px; height: 10px; background: #e53e3e; border-radius: 50%; border: 2px solid white; }
+  .chat-panel { position: fixed; bottom: 96px; right: 24px; width: 380px; height: 600px; background: var(--ivory); border-radius: 8px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; z-index: 200; transform: translateY(16px) scale(0.96); opacity: 0; pointer-events: none; transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease; overflow: hidden; }
+  .chat-panel.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
+  .chat-header { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); flex-shrink: 0; background: var(--ivory); }
+  .chat-avatar { width: 40px; height: 40px; background: var(--wine-soft); border-radius: 50%; display: grid; place-items: center; font-family: var(--serif); font-size: 20px; color: var(--wine); flex-shrink: 0; }
+  .chat-header-info { flex: 1; min-width: 0; }
+  .chat-header-name { font-size: 14px; font-weight: 600; color: var(--charcoal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chat-header-status { font-size: 11px; color: #38a169; margin-top: 1px; }
+  .chat-close-btn { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: var(--ash); transition: all 0.2s; flex-shrink: 0; }
+  .chat-close-btn:hover { background: var(--cream-deep); color: var(--charcoal); }
+  .chat-close-btn svg { width: 16px; height: 16px; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 16px 14px 8px; display: flex; flex-direction: column; gap: 2px; scroll-behavior: smooth; }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+  .chat-msg-wrap { display: flex; flex-direction: column; margin-bottom: 10px; }
+  .chat-msg-wrap.bot { align-items: flex-start; }
+  .chat-msg-wrap.user { align-items: flex-end; }
+  .chat-bubble { max-width: 80%; padding: 11px 14px; border-radius: 12px; font-size: 14px; line-height: 1.55; font-family: var(--sans); word-break: break-word; }
+  .chat-bubble.bot { background: var(--cream); color: var(--charcoal); border-left: 3px solid var(--wine); border-radius: 4px 12px 12px 4px; }
+  .chat-bubble.user { background: var(--charcoal); color: var(--cream); border-radius: 12px 4px 4px 12px; }
+  .chat-time { font-size: 10px; color: var(--ash); margin-top: 3px; padding: 0 4px; }
+  .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 11px 14px; background: var(--cream); border-left: 3px solid var(--wine); border-radius: 4px 12px 12px 4px; }
+  .typing-dot { width: 6px; height: 6px; background: var(--ash); border-radius: 50%; animation: typingBounce 1.2s infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  .chat-suggestions { display: flex; gap: 8px; flex-wrap: wrap; padding: 2px 14px 10px; flex-shrink: 0; }
+  .chat-sugg-btn { padding: 7px 13px; border: 1px solid var(--wine); border-radius: 20px; font-size: 12px; color: var(--wine); background: var(--ivory); transition: all 0.2s; white-space: nowrap; font-family: var(--sans); }
+  .chat-sugg-btn:hover { background: var(--wine); color: var(--ivory); }
+  .chat-product-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 4px 14px 12px; flex-shrink: 0; scrollbar-width: none; }
+  .chat-product-scroll::-webkit-scrollbar { display: none; }
+  .chat-product-card { min-width: 158px; background: var(--cream); border-radius: 8px; overflow: hidden; border: 1px solid var(--line); flex-shrink: 0; }
+  .chat-product-img { width: 100%; height: 140px; object-fit: cover; display: block; }
+  .chat-product-info { padding: 10px 11px 11px; }
+  .chat-product-name { font-family: var(--serif); font-size: 15px; line-height: 1.2; color: var(--charcoal); margin-bottom: 4px; }
+  .chat-product-price { font-size: 15px; font-weight: 600; color: var(--wine); margin-bottom: 9px; }
+  .chat-product-actions { display: flex; gap: 5px; }
+  .chat-card-btn { flex: 1; padding: 6px 6px; border-radius: 6px; font-size: 11px; font-family: var(--sans); font-weight: 500; transition: all 0.2s; text-align: center; cursor: pointer; }
+  .chat-card-btn.primary { background: var(--charcoal); color: var(--cream); border: none; }
+  .chat-card-btn.primary:hover { background: var(--wine); }
+  .chat-card-btn.ghost { border: 1px solid var(--charcoal); color: var(--charcoal); background: none; }
+  .chat-card-btn.ghost:hover { background: var(--charcoal); color: var(--cream); }
+  .chat-wa-link { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; background: #25D366; color: white; border-radius: 20px; font-size: 13px; font-family: var(--sans); font-weight: 500; text-decoration: none; transition: opacity 0.2s; margin: 2px 14px 10px; width: fit-content; }
+  .chat-wa-link:hover { opacity: 0.85; color: white; }
+  .chat-wa-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .chat-input-area { display: flex; align-items: center; gap: 9px; padding: 12px 14px; border-top: 1px solid var(--line); flex-shrink: 0; background: var(--ivory); }
+  .chat-input { flex: 1; border: 1px solid var(--line); border-radius: 20px; padding: 9px 15px; font-size: 14px; font-family: var(--sans); background: var(--cream); color: var(--charcoal); outline: none; transition: border-color 0.2s; min-width: 0; }
+  .chat-input:focus { border-color: var(--wine); }
+  .chat-input::placeholder { color: var(--ash); }
+  .chat-send-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--charcoal); color: var(--cream); border: none; display: grid; place-items: center; transition: all 0.2s; flex-shrink: 0; cursor: pointer; }
+  .chat-send-btn:hover:not(:disabled) { background: var(--wine); }
+  .chat-send-btn:disabled { background: var(--line); color: var(--ash); cursor: not-allowed; }
+  .chat-send-btn svg { width: 15px; height: 15px; }
+  @media (max-width: 640px) { .chat-panel { bottom: 0; right: 0; left: 0; width: 100%; max-width: 100vw; height: calc(100vh - 32px); border-radius: 16px 16px 0 0; } }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="#" class="logo">ZINN<span>ÁTI</span><small>Always fits perfect</small></a>
+      <ul class="nav-links" id="navLinks">
+        <li class="nav-dd">
+          <button class="nav-dd-toggle" id="catalogToggle">Каталог
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav-dd-bar" id="catalogBar">
+            <a href="#summer" data-coll>Лето<span>Новинки</span></a>
+            <a href="#spring" data-coll>Sale<span>−25%</span></a>
+          </div>
+        </li>
+        <li><a href="#occasions">Капсулы</a></li>
+        <li><a href="#delivery">Примерка</a></li>
+        <li><a href="#about">О нас</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="https://wa.me/77015336339?text=Здравствуйте! Хочу записаться на примерку ZINNÁTI" class="nav-phone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+          <span>+7 701 533 63 39</span>
+        </a>
+        <button class="cart-btn" onclick="openCart()" aria-label="Корзина">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Меню" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-decor top">knit</span>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Timeless knitwear · Астана · Доставка по миру</div>
+        <h1 class="hero-title">Тепло, что<br>создано <em>для вас</em></h1>
+        <p class="hero-desc">Премиальный трикотаж ручной работы. Создано женщинами для женщин — для тех, кто ценит безупречную посадку и благородные натуральные волокна.</p>
+        <div class="hero-actions">
+          <a href="#catalog" class="btn btn-primary">
+            Смотреть коллекцию
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="https://wa.me/77015336339?text=Здравствуйте! Хочу записаться на примерку ZINNÁTI" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+            Записаться
+          </a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-stat">
+          <div class="hero-stat-number">100%</div>
+          <div class="hero-stat-label">Натуральные волокна</div>
+        </div>
+        <div class="hero-image-main"></div>
+        <div class="hero-caption">Get ready for the summer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div class="trust-title">Ручная работа</div>
+        <div class="trust-desc">Каждое изделие<br>вяжется вручную</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="trust-title">Натуральные волокна</div>
+        <div class="trust-desc">Кашемир, меринос<br>и премиум-хлопок</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/></svg></div>
+        <div class="trust-title">Примерка по записи</div>
+        <div class="trust-desc">Индивидуально<br>в Астане</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <div class="trust-title">Доставка по миру</div>
+        <div class="trust-desc">Бережная упаковка<br>в любую точку</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section class="section" id="catalog">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Каталог</div>
+      <h2 class="section-title">Вещи <em>вне времени</em></h2>
+      <p class="section-desc">Каждое изделие связано вручную из благородных волокон и может быть пошито по вашим меркам. Цены указаны в тенге.</p>
+    </div>
+    <div class="catalog-tabs reveal">
+      <button class="tab active" data-cat="all">Все</button>
+      <button class="tab" data-cat="tops">Топы и рубашки</button>
+      <button class="tab" data-cat="bottoms">Юбки и шорты</button>
+      <button class="tab" data-cat="dresses">Платья</button>
+      <button class="tab" data-cat="cardigans">Кардиганы</button>
+      <button class="tab" data-cat="sets">Комплекты</button>
+      <button class="tab" data-cat="accessories">Аксессуары</button>
+    </div>
+
+    <div class="capsule-active" id="capsulePill" style="display:none;">
+      <span id="capsulePillText"></span>
+      <button onclick="clearCapsule()" aria-label="Сбросить подборку">✕</button>
+    </div>
+
+    <!-- SUMMER COLLECTION -->
+    <div class="collection-block reveal" id="summer">
+      <div class="collection-head">
+        <span class="collection-tag new">Новинки</span>
+        <h3 class="collection-title">Лето · коллекция «CONNECTIONS»</h3>
+        <p class="collection-sub">Лёгкий трикотаж в натуральных оттенках. Размеры Small и Tall, отдельные вещи и комплекты со скидкой.</p>
+      </div>
+      <div class="products" id="products-summer"></div>
+    </div>
+
+    <!-- SPRING COLLECTION -->
+    <div class="collection-block reveal" id="spring">
+      <div class="collection-head">
+        <span class="collection-tag sale">Sale −25%</span>
+        <h3 class="collection-title">Sale · осенняя коллекция</h3>
+        <p class="collection-sub">Кардиганы, платья и трикотаж прошлого сезона со скидкой 15–25%. К первой покупке кардигана — фирменный пояс в подарок.</p>
+      </div>
+      <div class="products" id="products-spring"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPSULES -->
+<section class="occasions" id="occasions">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Капсулы</div>
+      <h2 class="section-title">Образ <em>для каждого дня</em></h2>
+      <p class="section-desc">Подберём капсулу под ваш ритм жизни — от уютного дома до вечернего выхода.</p>
+    </div>
+    <div class="occasions-grid reveal">
+      <div class="occasion cap-evening" role="button" tabindex="0" onclick="filterCapsule('вечер','Вечер')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterCapsule('вечер','Вечер')}">
+        <div class="occasion-img" style="background-image: url('images/grace-2.jpg');"></div>
+        <div class="occasion-overlay"></div>
+        <div class="occasion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+        <div class="occasion-content"><div class="occasion-title">Вечер</div></div>
+      </div>
+      <div class="occasion cap-office" role="button" tabindex="0" onclick="filterCapsule('офис','Офис')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterCapsule('офис','Офис')}">
+        <div class="occasion-img" style="background-image: url('images/vega.jpg');"></div>
+        <div class="occasion-overlay"></div>
+        <div class="occasion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+        <div class="occasion-content"><div class="occasion-title">Офис</div></div>
+      </div>
+      <div class="occasion cap-casual" role="button" tabindex="0" onclick="filterCapsule('повседневный','Повседневный')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterCapsule('повседневный','Повседневный')}">
+        <div class="occasion-img" style="background-image: url('images/code.jpg');"></div>
+        <div class="occasion-overlay"></div>
+        <div class="occasion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+        <div class="occasion-content"><div class="occasion-title">Повседневный</div></div>
+      </div>
+      <div class="occasion cap-leisure" role="button" tabindex="0" onclick="filterCapsule('отдых','Отдых')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterCapsule('отдых','Отдых')}">
+        <div class="occasion-img" style="background-image: url('images/set-vest-shorts.jpg');"></div>
+        <div class="occasion-overlay"></div>
+        <div class="occasion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+        <div class="occasion-content"><div class="occasion-title">Отдых</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FITTING / DELIVERY -->
+<section class="delivery" id="delivery">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Примерка и доставка</div>
+      <h2 class="section-title">Идеально <em>по фигуре</em></h2>
+      <p class="section-desc">Индивидуальная примерка по записи в шоуруме Астаны. Бережная доставка готового изделия в любую точку мира.</p>
+    </div>
+    <div class="delivery-grid reveal">
+      <div class="delivery-card">
+        <h3>Примерка по записи</h3>
+        <div class="time-slots">
+          <div class="slot">10:00 — 12:00</div>
+          <div class="slot">12:00 — 14:00</div>
+          <div class="slot">14:00 — 16:00</div>
+          <div class="slot">16:00 — 18:00</div>
+          <div class="slot">18:00 — 20:00</div>
+          <div class="slot">По договорённости</div>
+        </div>
+        <p style="font-size: 13px; color: var(--ash); line-height: 1.6;">Снимем мерки, подберём силуэт, длину и оттенок индивидуально под вас. Запись через WhatsApp или Instagram.</p>
+      </div>
+      <div class="delivery-card">
+        <h3>Доставка по миру</h3>
+        <ul class="delivery-zones">
+          <li><span>Астана (примерка / самовывоз)</span><span class="zone-price" style="color: var(--blue-deep);">Бесплатно</span></li>
+          <li><span>Казахстан</span><span class="zone-price">от 2 000 ₸</span></li>
+          <li><span>СНГ</span><span class="zone-price">от 6 000 ₸</span></li>
+          <li><span>Европа и мир</span><span class="zone-price">от 12 000 ₸</span></li>
+          <li><span>При заказе от 150 000 ₸</span><span class="zone-price" style="color: var(--blue-deep);">Бесплатно</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-images reveal">
+        <div class="about-img-1"></div>
+      </div>
+      <div class="about-text reveal">
+        <div class="section-eyebrow">О нас</div>
+        <h2>Создано женщинами <em>для женщин</em></h2>
+        <p>ZINNÁTI — это небольшая мастерская премиального трикотажа, где каждое изделие создаётся вручную с вниманием к каждой петле. Мы одеваем женщину в то, что обнимает её фигуру и подчёркивает естественную красоту.</p>
+        <p>Мы выбираем только благородные натуральные волокна — кашемир, мериносовую шерсть и хлопок премиум-класса. Никакой массовости: только ограниченные коллекции и вещи, которые служат годами.</p>
+        <div class="about-stats">
+          <div><div class="stat-num">5 лет</div><div class="stat-label">мастерству</div></div>
+          <div><div class="stat-num">3 000+</div><div class="stat-label">изделий</div></div>
+          <div><div class="stat-num">4.9 ★</div><div class="stat-label">рейтинг</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Отзывы</div>
+      <h2 class="section-title">Что <em>говорят</em> о нас</h2>
+    </div>
+    <div class="reviews-grid reveal">
+      <div class="review">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Свитер сел идеально, будто связан точно по мне. Кашемир невероятно мягкий, ношу почти не снимая. Это совсем другой уровень.</p>
+        <div class="review-author"><div class="review-avatar">А</div><div><div class="review-name">Айгерим К.</div><div class="review-date">Instagram · 12 апреля 2026</div></div></div>
+      </div>
+      <div class="review">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Заказывала платье из другого города — сняли мерки онлайн, всё объяснили, доставили бережно. Посадка безупречная. Спасибо девочкам!</p>
+        <div class="review-author"><div class="review-avatar">Д</div><div><div class="review-name">Динара М.</div><div class="review-date">2GIS · 3 апреля 2026</div></div></div>
+      </div>
+      <div class="review">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Примерка в шоуруме — отдельное удовольствие. Подобрали оттенок и длину под мою фигуру. Кардиган ношу уже год, выглядит как новый.</p>
+        <div class="review-author"><div class="review-avatar">М</div><div><div class="review-name">Мадина Т.</div><div class="review-date">2GIS · 28 марта 2026</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">Создадим вашу<br>вещь <em>вместе</em></h2>
+      <p class="cta-desc">Запишитесь на индивидуальную примерку в Астане или оформите заказ с доставкой по миру. Мы ответим в течение дня.</p>
+      <a href="#catalog" class="btn btn-primary">
+        Выбрать изделие
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacts">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">ZINN<span>ÁTI</span><small>Always fits perfect</small></a>
+        <p>Timeless knitwear. Премиальный трикотаж ручной работы. Создано женщинами для женщин. Индивидуальная примерка в Астане, доставка по миру.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/zinnati.kz/" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://wa.me/77015336339" class="social-icon" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg></a>
+          <a href="tel:+77015336339" class="social-icon" aria-label="Phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Каталог</h4>
+        <ul><li><a href="#catalog">Топы и рубашки</a></li><li><a href="#catalog">Юбки и шорты</a></li><li><a href="#catalog">Платья</a></li><li><a href="#catalog">Кардиганы</a></li><li><a href="#catalog">Комплекты</a></li><li><a href="#catalog">Аксессуары</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Информация</h4>
+        <ul><li><a href="#delivery">Примерка</a></li><li><a href="#delivery">Доставка</a></li><li><a href="#about">О нас</a></li><li><a href="#">Уход за изделием</a></li><li><a href="#">Возврат</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <ul><li>+7 701 533 63 39</li><li>hello@zinnati.com</li><li>г. Астана, Казахстан</li><li>Примерка по записи</li><li>Доставка по миру</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 ZINNÁTI. Все права защищены.</div>
+      <div>Создано женщинами для женщин · Доставка по миру</div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING -->
+<div class="floating">
+  <button class="float-btn chat" id="chatToggle" aria-label="Открыть чат">
+    <span class="chat-notif-dot" id="chatNotifDot"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <a href="https://www.instagram.com/zinnati.kz/" class="float-btn ig" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+  </a>
+  <a href="https://wa.me/77015336339?text=Здравствуйте! Хочу записаться на примерку ZINNÁTI" class="float-btn wa" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+  </a>
+</div>
+
+<!-- CHATBOT PANEL -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-avatar">А</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Стилист Аружан</div>
+      <div class="chat-header-status">● онлайн</div>
+    </div>
+    <button class="chat-close-btn" id="chatClose" aria-label="Закрыть чат"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-suggestions" id="chatSuggestions"></div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Напишите сообщение...">
+    <button class="chat-send-btn" id="chatSendBtn" disabled aria-label="Отправить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Ваш заказ</h3>
+    <button class="cart-close" onclick="closeCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="cart-scroll">
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-form hidden" id="cartForm">
+    <div class="form-group"><label for="customerName">Ваше имя</label><input type="text" id="customerName" placeholder="Имя Фамилия"></div>
+    <div class="form-group"><label for="customerPhone">Телефон</label><input type="tel" id="customerPhone" placeholder="+7 ___ ___ __ __"></div>
+    <div class="form-row">
+      <div class="form-group"><label for="deliveryDate">Дата</label><input type="date" id="deliveryDate"></div>
+      <div class="form-group"><label for="deliveryTime">Время примерки</label>
+        <select id="deliveryTime">
+          <option>10:00 — 12:00</option><option>12:00 — 14:00</option><option>14:00 — 16:00</option><option>16:00 — 18:00</option><option>18:00 — 20:00</option><option>По договорённости</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label for="deliveryAddress">Город / адрес доставки</label><input type="text" id="deliveryAddress" placeholder="Город, улица, дом, кв."></div>
+    <div class="form-group"><label for="comment">Комментарий (необязательно)</label><textarea id="comment" rows="2" placeholder="Размер, желаемый оттенок, пожелания"></textarea></div>
+    <div class="form-group"><label id="payLabel">Способ оплаты</label>
+      <div class="payment-options" role="radiogroup" aria-labelledby="payLabel">
+        <div class="pay-option selected" data-pay="Kaspi" role="radio" tabindex="0" aria-checked="true">Kaspi</div>
+        <div class="pay-option" data-pay="Карта" role="radio" tabindex="0" aria-checked="false">Карта</div>
+        <div class="pay-option" data-pay="Перевод" role="radio" tabindex="0" aria-checked="false">Перевод</div>
+      </div>
+    </div>
+    <div class="promo-row">
+      <input type="text" id="promoInput" placeholder="Промокод" autocomplete="off" aria-label="Промокод"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();applyPromo();}">
+      <button type="button" class="promo-apply" onclick="applyPromo()">Применить</button>
+    </div>
+    <div class="promo-msg" id="promoMsg"></div>
+    <div class="cart-summary" id="cartSummary"></div>
+    <div class="cart-total"><span class="cart-total-label">Итого</span><span class="cart-total-value" id="cartTotal">0 ₸</span></div>
+    <button class="cart-submit" onclick="submitOrder()">Оформить заказ</button>
+    <div class="cart-wa-fallback">или <a href="#" onclick="orderViaWhatsApp(); return false;">оформить через WhatsApp</a></div>
+  </div>
+  </div>
+</div>
+
+<script>
+  // ================================================================
+  // GOOGLE SHEETS INTEGRATION (optional)
+  // File → Share → Publish to web → (choose the sheet) → CSV → paste link below
+  // Columns (header row, exact names):
+  //   id | name | cat | collection | price | sale | salePercent | oldPrice | sizes | qty | capsule | badge | img1 | img2 | img3 | desc
+  //   • cat:        tops | bottoms | dresses | cardigans | sets | accessories
+  //   • collection: summer (блок «Лето») | spring (блок «Sale»). Если пусто — берётся из sale.
+  //   • oldPrice: старая цена для зачёркивания (если задаёте цену со скидкой вручную, напр. комплекты)
+  //   • price:  обычная цена в тенге (число, без пробелов)
+  //   • sale:   TRUE/FALSE (TRUE → попадает в «Весеннюю / Sale» коллекцию)
+  //   • salePercent: скидка в % (напр. 20) — итоговая цена считается автоматически
+  //   • sizes:  список размеров через запятую, напр.  XS,S,M,L
+  //   • qty:    общее количество на складе (число). Если 0 → товар «Нет в наличии». Пусто → в наличии.
+  //   • capsule: для какой капсулы подходит — вечер / офис / повседневный / отдых (можно несколько через запятую)
+  //   • badge:  ХИТ / NEW / … (для sale-товара ставится −%% автоматически)
+  //   • img1..img3: ссылки на 1–3 фото (или локальные пути вида images/p1-a.jpg)
+  //   • desc:   короткое описание (необязательно)
+  // ================================================================
+  // Google-таблица каталога. Чтобы заработало: открыть таблицу → «Настройки доступа» →
+  // «Все, у кого есть ссылка» → «Читатель». Пока доступ закрыт, сайт берёт встроенные данные.
+  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1AQItt6N-55udUxXEY2YqsB6jhJ6SbwQqqOV_E4cCFjM/gviz/tq?tqx=out:csv';
+  // Промокоды берутся из вкладки «promo» той же таблицы (колонки: code | type | value | minOrder | expires | active)
+  //   • type: percent (value=10 → −10%) | fixed (value=5000 → −5000 ₸) | shipping (бесплатная доставка)
+  //   • minOrder: мин. сумма заказа | expires: ГГГГ-ММ-ДД | active: TRUE/FALSE
+  const PROMO_URL = SHEET_URL ? SHEET_URL.split('?')[0] + '?tqx=out:csv&sheet=promo' : '';
+  // Apps Script web-app URL (…/exec). Когда задан — промокоды проверяются на сервере:
+  // коды НЕ видны в коде страницы, работает одноразовость/лимит. Пусто → клиентская проверка по CSV.
+  const PROMO_API = 'https://script.google.com/macros/s/AKfycbyRa0AeIJE06Zlq8P6y-ngzVdCI7WC1LcbyoX-wUdq0GX5M3W1uxGMjvVyMgSyip6sJ/exec';
+  const _promoFallback = [
+    { code: 'WELCOME10',    type: 'percent',  value: 10,   minOrder: 0,     expires: '', active: true },
+    { code: 'ZINNATI5000',  type: 'fixed',    value: 5000, minOrder: 50000, expires: '', active: true },
+    { code: 'FREEDELIVERY', type: 'shipping', value: 0,    minOrder: 0,     expires: '', active: true },
+  ];
+  let promoCodes = [];
+  let appliedPromo = null;
+
+  let products = [];
+
+  // ============ FALLBACK / HARDCODED DATA ============
+  const _fallback = [
+    // ===== ЛЕТО · коллекция CONNECTIONS «связи» (реальные товары) =====
+    {id: 1,  name: "Жилетка «Facet»",        cat: "tops",      collection: "summer", desc: "жёлтый / белый",            price: 38500, badge: "ХИТ", sizesRaw: "Small,Tall", capsule: "отдых,повседневный", imgs: ["images/facet.jpg","images/facet-2.jpg"]},
+    {id: 2,  name: "Рубашка «Mingle»",       cat: "tops",      collection: "summer", desc: "жёлтый / белый",            price: 56500,               sizesRaw: "Small,Tall", capsule: "офис,повседневный", imgs: ["images/mingle.jpg","images/mingle-2.jpg"]},
+    {id: 3,  name: "Шорты «Spark»",          cat: "bottoms",   collection: "summer", desc: "жёлтый / белый",            price: 29500,               sizesRaw: "Small,Tall", capsule: "отдых", imgs: ["images/spark.jpg","images/spark-2.jpg"]},
+    {id: 4,  name: "Юбка макси «Merge»",     cat: "bottoms",   collection: "summer", desc: "графит / бежевый",          price: 43500,               sizesRaw: "Small,Tall", capsule: "офис,вечер", imgs: ["images/merge.jpg","images/merge-2.jpg"]},
+    {id: 5,  name: "Юбка мини «Elan»",       cat: "bottoms",   collection: "summer", desc: "графит / бежевый",          price: 29500,               sizesRaw: "Small,Tall", capsule: "повседневный,отдых", imgs: ["images/elan.jpg","images/elan-2.jpg"]},
+    {id: 6,  name: "Поло «Bloom»",           cat: "tops",      collection: "summer", desc: "бежевый / розовый / коралл", price: 34500, badge: "ХИТ", sizesRaw: "Small,Tall", capsule: "офис,повседневный", imgs: ["images/bloom.jpg","images/bloom-2.jpg"]},
+    {id: 7,  name: "Платье «Grace»",         cat: "dresses",   collection: "summer", desc: "розовый",                   price: 48000, badge: "NEW", sizesRaw: "Small,Tall", capsule: "вечер", imgs: ["images/grace.jpg","images/grace-2.jpg"]},
+    {id: 8,  name: "Сарафан «Haven»",        cat: "dresses",   collection: "summer", desc: "бежевый / розовый",         price: 43500,               sizesRaw: "Small,Tall", capsule: "вечер,отдых", imgs: ["images/haven.jpg","images/haven-2.jpg"]},
+    {id: 9,  name: "Кардиган «Embrace»",     cat: "cardigans", collection: "summer", desc: "бежевый",                   price: 64500,               sizesRaw: "Small,Tall", capsule: "офис,вечер", imgs: ["images/embrace.jpg","images/embrace-2.jpg"]},
+    {id: 10, name: "Кардиган «Loom»",        cat: "cardigans", collection: "summer", desc: "розово-бежевый узор",        price: 64500, badge: "NEW", sizesRaw: "Small,Tall", capsule: "вечер,повседневный", imgs: ["images/loom.jpg","images/loom-2.jpg"]},
+    // ===== ЛЕТО · комплекты (цена со скидкой) =====
+    {id: 11, name: "Комплект «Facet + Spark»",   cat: "sets", collection: "summer", desc: "жилет + шорты",        price: 61500, oldPrice: 68000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "отдых", imgs: ["images/set-vest-shorts.jpg"]},
+    {id: 12, name: "Комплект «Mingle + Spark»",  cat: "sets", collection: "summer", desc: "рубашка + шорты",      price: 77500, oldPrice: 86000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "отдых,повседневный", imgs: ["images/set-shirt-shorts.jpg"]},
+    {id: 13, name: "Комплект «Merge + Bloom»",   cat: "sets", collection: "summer", desc: "юбка макси + поло",    price: 70500, oldPrice: 78000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "офис", imgs: ["images/set-maxi-polo.jpg"]},
+    {id: 14, name: "Комплект «Elan + Bloom»",    cat: "sets", collection: "summer", desc: "юбка мини + поло",     price: 57500, oldPrice: 64000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "повседневный", imgs: ["images/set-mini-polo.jpg"]},
+    {id: 15, name: "Комплект «Embrace + Haven»", cat: "sets", collection: "summer", desc: "кардиган + сарафан",   price: 97500, oldPrice: 108000, badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "вечер", imgs: ["images/set-cardigan-sundress.jpg"]},
+    // ===== SALE · осенняя коллекция (цены из каталога, скидка %) =====
+    {id: 16, name: "Кардиган макси «Pure»",       cat: "cardigans", collection: "spring", salePercent: 25, price: 145000, desc: "шоколад / марсала",            sizesRaw: "Small,Tall", capsule: "вечер", imgs: ["images/pure.jpg","images/pure-2.jpg"]},
+    {id: 17, name: "Платье «Muse»",               cat: "dresses",   collection: "spring", salePercent: 15, price: 115000, desc: "марсала",                       sizesRaw: "Small,Tall", capsule: "вечер", imgs: ["images/muse.jpg","images/muse-2.jpg"]},
+    {id: 18, name: "Кардиган «Sierra»",           cat: "cardigans", collection: "spring", salePercent: 25, price: 95000,  desc: "марсала / пыльно-розовый / терракот", sizesRaw: "Small,Tall", capsule: "повседневный,офис", imgs: ["images/sierra.jpg","images/sierra-2.jpg"]},
+    {id: 19, name: "Кардиган «Celeste»",          cat: "cardigans", collection: "spring", salePercent: 25, price: 115000, desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "офис,вечер", imgs: ["images/celeste.jpg","images/celeste-2.jpg"]},
+    {id: 20, name: "Кардиган «Code»",             cat: "cardigans", collection: "spring", salePercent: 25, price: 115000, desc: "шоколад / марсала",             sizesRaw: "Small,Tall", capsule: "повседневный,офис", imgs: ["images/code.jpg","images/code-2.jpg"]},
+    {id: 21, name: "Юбка «Harmony»",              cat: "bottoms",   collection: "spring", salePercent: 15, price: 95000,  desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "офис", imgs: ["images/harmony.jpg","images/harmony-2.jpg"]},
+    {id: 22, name: "Джемпер «Serene»",            cat: "tops",      collection: "spring", salePercent: 15, price: 65000,  desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "повседневный,офис", imgs: ["images/serene.jpg","images/serene-2.jpg"]},
+    {id: 23, name: "Поло «Vega»",                 cat: "tops",      collection: "spring", salePercent: 15, price: 59000,  desc: "шоколад / айвори / марсала / авокадо", sizesRaw: "Small,Tall", capsule: "офис", imgs: ["images/vega.jpg","images/vega-2.jpg"]},
+    {id: 24, name: "Пояс «Code» (толстый)",       cat: "accessories", collection: "spring", sale: false, price: 15000, badge: "В ПОДАРОК", desc: "ручное ткачество · в подарок к кардигану", sizesRaw: "Стандарт", capsule: "", imgs: ["images/belt-thick.jpg"]},
+    {id: 25, name: "Пояс «Code» (тонкий)",        cat: "accessories", collection: "spring", sale: false, price: 12000, badge: "В ПОДАРОК", desc: "ручное ткачество · в подарок к кардигану", sizesRaw: "Стандарт", capsule: "", imgs: ["images/belt-thin.jpg"]},
+  ];
+
+  let currentCat = 'all';
+  let currentCapsule = null;
+  let cart = [];
+  const selectedQty = {};
+  const selectedSize = {};
+
+  // ============ GOOGLE SHEETS LOADER ============
+  function parseCSVLine(line) {
+    const cols = []; let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') { if (inQ && line[i + 1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+      else if (c === ',' && !inQ) { cols.push(cur); cur = ''; }
+      else cur += c;
+    }
+    cols.push(cur); return cols;
+  }
+  function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = parseCSVLine(lines[0]).map(h => h.trim());
+    return lines.slice(1).filter(l => l.trim()).map(line => {
+      const vals = parseCSVLine(line); const obj = {};
+      headers.forEach((h, i) => { obj[h] = (vals[i] || '').trim(); });
+      return obj;
+    });
+  }
+  // parse "XS,S,M,L" → [{size:'XS'}, ...] — размеры как ярлыки выбора (наличие теперь общим количеством qty)
+  function parseSizes(sizesRaw) {
+    const sizes = String(sizesRaw || '').split(',').map(s => s.trim()).filter(Boolean);
+    if (!sizes.length) return null;
+    return sizes.map(s => ({ size: s }));
+  }
+
+  // turn any partial product (sheet row OR fallback object) into the canonical shape used by the UI
+  function normalizeProduct(p) {
+    const sale = (p.sale != null) ? !!p.sale : (p.collection === 'spring' || /sale|%|−|-\d/i.test(p.badge || ''));
+    const pct = parseFloat(p.salePercent) || 0;
+    let price = parseFloat(p.price) || 0;
+    let oldPrice = p.oldPrice ? parseFloat(p.oldPrice) : null;
+    if (sale && pct > 0) { oldPrice = price; price = Math.round(price * (1 - pct / 100)); }
+    const sizeStock = p.sizeStock || parseSizes(p.sizesRaw);
+    const qty = (p.qty === '' || p.qty == null) ? null : (parseInt(p.qty) || 0);
+    let inStock = p.inStock;
+    if (inStock == null) inStock = (qty == null) ? true : qty > 0;
+    const imgs = (p.imgs && p.imgs.length) ? p.imgs : (p.img ? [p.img] : []);
+    let badge = p.badge || null;
+    const badgeNew = (badge || '').toUpperCase() === 'NEW';
+    if (sale) badge = pct > 0 ? `−${pct}%` : (badge && /sale|%/i.test(badge) ? badge : 'SALE');
+    return {
+      id: parseInt(p.id), name: p.name, cat: p.cat || 'sweaters',
+      collection: p.collection || (sale ? 'spring' : 'summer'), desc: p.desc || '',
+      price, oldPrice, isSale: sale, salePercent: pct,
+      badge, badgeNew, imgs, img: imgs[0] || '',
+      capsules: String(p.capsule || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean),
+      sizeStock, inStock, qty, unit: p.unit || 'изделие', defaultQty: parseInt(p.defaultQty) || 1
+    };
+  }
+
+  function rowToProduct(row) {
+    if (!row.id || !row.name) return null;
+    const truthy = v => ['true', '1', 'yes', 'да', 'y', 'sale', '+'].includes(String(v || '').trim().toLowerCase());
+    return normalizeProduct({
+      id: row.id, name: row.name, cat: (row.cat || 'sweaters').toLowerCase(),
+      collection: (row.collection || '').toLowerCase() || undefined,
+      price: row.price, sale: truthy(row.sale), salePercent: row.salePercent,
+      oldPrice: row.oldPrice || null,
+      sizesRaw: row.sizes || '', qty: row.qty, capsule: row.capsule || '',
+      badge: row.badge || null,
+      imgs: [row.img1, row.img2, row.img3].map(s => (s || '').trim()).filter(Boolean),
+      desc: row.desc || ''
+    });
+  }
+  async function loadProducts() {
+    const loading = `<div class="products-loading"><div class="loading-spinner"></div><span>Загружаем коллекцию…</span></div>`;
+    document.getElementById('products-summer').innerHTML = loading;
+    document.getElementById('products-spring').innerHTML = '';
+    try {
+      if (!SHEET_URL || SHEET_URL.includes('PASTE_YOUR')) throw new Error('no-url');
+      const res = await fetch(SHEET_URL + (SHEET_URL.includes('?') ? '&' : '?') + '_=' + Date.now());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const rows = parseCSV(await res.text()).map(rowToProduct).filter(Boolean);
+      if (rows.length === 0) throw new Error('empty');
+      products = rows; renderProducts();
+    } catch (err) {
+      products = _fallback.map(normalizeProduct); renderProducts();
+    }
+  }
+
+  // ============ RENDER PRODUCTS ============
+  function productCard(p) {
+    const isSale = p.isSale || p.badge === 'SALE';
+    const sizesHtml = (p.sizeStock && p.sizeStock.length) ? `
+            <div class="size-row" data-pid="${p.id}">
+              ${p.sizeStock.map(s => `<button class="size-chip" data-size="${s.size}" onclick="event.stopPropagation(); selectSize(${p.id}, this.dataset.size);">${s.size}</button>`).join('')}
+            </div>` : '';
+    return `
+      <article class="product${p.inStock === false ? ' out-of-stock' : ''}" data-id="${p.id}">
+        <div class="product-image">
+          <img src="${p.img}" alt="${p.name}" class="img-main" loading="lazy">
+          ${p.imgs && p.imgs[1] ? `<img src="${p.imgs[1]}" alt="" class="img-hover" loading="lazy">` : ''}
+          ${p.badge ? `<div class="product-badge ${isSale ? 'sale' : (p.badgeNew || p.badge === 'NEW') ? 'new' : ''}">${p.badge}</div>` : ''}
+          ${p.inStock === false ? `<div class="out-of-stock-overlay"><span>Нет в наличии</span></div>` : ''}
+          <a href="#" class="product-wa" aria-label="WhatsApp" onclick="event.stopPropagation(); openWA(${p.id}); return false;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+          </a>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">${p.name}</h3>
+          <div class="product-meta">${p.desc}</div>
+          ${sizesHtml}
+          <div class="product-bottom">
+            <div class="product-price-wrap">
+              <div class="product-price" id="price-${p.id}">
+                ${p.oldPrice ? `<span class="product-price-old">${p.oldPrice.toLocaleString('ru-RU')} ₸</span>` : ''}
+                <span id="total-${p.id}">${p.price.toLocaleString('ru-RU')} ₸</span>
+              </div>
+            </div>
+            <div class="product-controls${p.inStock === false ? ' out-of-stock' : ''}">
+              <button class="add-btn" onclick="addToCart(${p.id})" aria-label="В корзину"${p.inStock === false ? ' disabled' : ''}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderProducts() {
+    const inCat = p => currentCat === 'all' || p.cat === currentCat;
+    const inCap = p => !currentCapsule || (p.capsules && p.capsules.includes(currentCapsule));
+    const summer = products.filter(p => p.collection === 'summer' && inCat(p) && inCap(p));
+    const spring = products.filter(p => p.collection === 'spring' && inCat(p) && inCap(p));
+    const empty = `<p class="collection-empty">В этой коллекции пока нет изделий выбранной категории.</p>`;
+    const sGrid = document.getElementById('products-summer');
+    const pGrid = document.getElementById('products-spring');
+    sGrid.innerHTML = summer.length ? summer.map(productCard).join('') : empty;
+    pGrid.innerHTML = spring.length ? spring.map(productCard).join('') : empty;
+    // hide a whole collection block while it has no products at all (any category)
+    const hasSummer = products.some(p => p.collection === 'summer');
+    const hasSpring = products.some(p => p.collection === 'spring');
+    document.getElementById('summer').style.display = hasSummer ? '' : 'none';
+    document.getElementById('spring').style.display = hasSpring ? '' : 'none';
+    const springNav = document.querySelector('#catalogBar a[href="#spring"]');
+    if (springNav) springNav.style.display = hasSpring ? '' : 'none';
+    applySizeDefaults();
+  }
+
+  // pre-select the first in-stock size on each card, highlight it
+  function applySizeDefaults() {
+    document.querySelectorAll('.size-row').forEach(row => {
+      const id = parseInt(row.dataset.pid);
+      if (!selectedSize[id]) {
+        const firstAvail = row.querySelector('.size-chip');
+        if (firstAvail) selectedSize[id] = firstAvail.dataset.size;
+      }
+      row.querySelectorAll('.size-chip').forEach(b => b.classList.toggle('active', b.dataset.size === selectedSize[id]));
+    });
+  }
+  function selectSize(id, size) {
+    selectedSize[id] = size;
+    document.querySelectorAll(`.size-row[data-pid="${id}"] .size-chip`).forEach(b =>
+      b.classList.toggle('active', b.dataset.size === size));
+  }
+
+  // ============ TABS ============
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentCat = tab.dataset.cat;
+      currentCapsule = null; updateCapsulePill();   // switching category clears the capsule selection
+      renderProducts();
+    });
+  });
+
+  // ============ CAPSULE FILTER ============
+  function filterCapsule(key, label) {
+    currentCapsule = key;
+    currentCat = 'all';
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.cat === 'all'));
+    updateCapsulePill(label);
+    renderProducts();
+    document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+  }
+  function clearCapsule() { currentCapsule = null; updateCapsulePill(); renderProducts(); }
+  function updateCapsulePill(label) {
+    const pill = document.getElementById('capsulePill');
+    if (!pill) return;
+    if (currentCapsule) {
+      document.getElementById('capsulePillText').textContent = 'Подборка: ' + (label || currentCapsule);
+      pill.style.display = 'flex';
+    } else {
+      pill.style.display = 'none';
+    }
+  }
+  window.filterCapsule = filterCapsule; window.clearCapsule = clearCapsule;
+
+  // ============ MOBILE MENU ============
+  (function () {
+    const btn = document.getElementById('menuToggle');
+    const links = document.getElementById('navLinks');
+    if (!btn || !links) return;
+    const setOpen = (open) => {
+      links.classList.toggle('open', open);
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!links.classList.contains('open')); });
+    // close after tapping any nav link, or when tapping outside
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('click', (e) => { if (!links.contains(e.target) && !btn.contains(e.target)) setOpen(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 1024) setOpen(false); });
+  })();
+
+  // ============ CATALOG DROPDOWN ============
+  (function () {
+    const dd = document.querySelector('.nav-dd');
+    const toggle = document.getElementById('catalogToggle');
+    if (!dd || !toggle) return;
+    toggle.addEventListener('click', (e) => { e.stopPropagation(); dd.classList.toggle('open'); });
+    document.querySelectorAll('#catalogBar a[data-coll]').forEach(a => {
+      a.addEventListener('click', () => dd.classList.remove('open'));
+    });
+    document.addEventListener('click', (e) => { if (!dd.contains(e.target)) dd.classList.remove('open'); });
+  })();
+
+  function openWA(id) {
+    const p = products.find(p => p.id === id);
+    window.open('https://wa.me/77015336339?text=' + encodeURIComponent('Здравствуйте! Интересует изделие ZINNÁTI: ' + p.name + ' (' + p.price.toLocaleString('ru-RU') + ' ₸)'), '_blank');
+  }
+
+  // ============ CART ============
+  function addToCart(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    const size = selectedSize[id]
+      || (product.sizeStock && product.sizeStock[0] && product.sizeStock[0].size)
+      || null;
+    const lineId = id + (size ? '__' + size : '');
+    const existing = cart.find(item => item.lineId === lineId);
+    if (existing) existing.qty += 1;
+    else cart.push({...product, qty: 1, size, lineId});
+    updateCart();
+    openCart();
+  }
+  function removeFromCart(lineId) { cart = cart.filter(item => item.lineId !== lineId); updateCart(); }
+  function changeQty(lineId, delta) {
+    const item = cart.find(i => i.lineId === lineId);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) removeFromCart(lineId); else updateCart();
+  }
+  // ============ PROMO CODES ============
+  function promoRow(row) {
+    if (!row.code) return null;
+    return {
+      code: String(row.code).trim().toUpperCase(),
+      type: (row.type || 'percent').trim().toLowerCase(),
+      value: parseFloat(row.value) || 0,
+      minOrder: parseFloat(row.minOrder) || 0,
+      expires: (row.expires || '').trim(),
+      active: !['false', '0', 'no', 'нет', 'off'].includes(String(row.active == null ? 'true' : row.active).trim().toLowerCase())
+    };
+  }
+  async function loadPromos() {
+    try {
+      if (!PROMO_URL) throw new Error('no-url');
+      const res = await fetch(PROMO_URL + '&_=' + Date.now());
+      if (!res.ok) throw new Error('http');
+      const rows = parseCSV(await res.text()).map(promoRow).filter(Boolean);
+      promoCodes = rows.length ? rows : _promoFallback;
+    } catch (e) {
+      promoCodes = _promoFallback;
+    }
+  }
+  // returns {discount, freeShipping} or {error}
+  function computeDiscount(subtotal, promo) {
+    if (!promo) return { discount: 0 };
+    if (!promo.active) return { error: 'Промокод неактивен' };
+    if (promo.expires) {
+      const exp = new Date(promo.expires + 'T23:59:59');
+      if (!isNaN(exp) && exp < new Date()) return { error: 'Срок действия промокода истёк' };
+    }
+    if (promo.minOrder && subtotal < promo.minOrder)
+      return { error: 'Минимальная сумма заказа — ' + promo.minOrder.toLocaleString('ru-RU') + ' ₸' };
+    if (promo.type === 'percent')  return { discount: Math.round(subtotal * promo.value / 100) };
+    if (promo.type === 'fixed')    return { discount: Math.min(promo.value, subtotal) };
+    if (promo.type === 'shipping') return { discount: 0, freeShipping: true };
+    return { discount: 0 };
+  }
+  async function applyPromo() {
+    const input = document.getElementById('promoInput');
+    const msg = document.getElementById('promoMsg');
+    const code = (input.value || '').trim().toUpperCase();
+    if (!code) { appliedPromo = null; updateCart(); return; }
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    // ---- server validation (codes stay hidden, single-use enforced) ----
+    if (PROMO_API) {
+      msg.textContent = 'Проверяем…'; msg.className = 'promo-msg';
+      try {
+        const url = PROMO_API + '?action=validate&code=' + encodeURIComponent(code) + '&subtotal=' + subtotal;
+        const data = await (await fetch(url)).json();
+        if (!data.ok) { appliedPromo = null; updateCart(); msg.textContent = data.error || 'Промокод недействителен'; msg.className = 'promo-msg err'; return; }
+        appliedPromo = { code: data.code, type: data.type, value: data.value, minOrder: data.minOrder || 0, expires: '', active: true, server: true };
+        updateCart(); return;
+      } catch (e) {
+        appliedPromo = null; updateCart(); msg.textContent = 'Не удалось проверить промокод, попробуйте ещё раз'; msg.className = 'promo-msg err'; return;
+      }
+    }
+    // ---- client-side fallback (only when no PROMO_API is configured) ----
+    const promo = promoCodes.find(p => p.code === code);
+    if (!promo) { appliedPromo = null; updateCart(); msg.textContent = 'Промокод не найден'; msg.className = 'promo-msg err'; return; }
+    const res = computeDiscount(subtotal, promo);
+    if (res.error) { appliedPromo = null; updateCart(); msg.textContent = res.error; msg.className = 'promo-msg err'; return; }
+    appliedPromo = promo; updateCart();
+  }
+  // mark the code as used (server-side) when the order is actually placed
+  async function consumePromo() {
+    if (!appliedPromo || !appliedPromo.server || !PROMO_API) return true;
+    try {
+      const phone = encodeURIComponent(document.getElementById('customerPhone').value || '');
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const url = PROMO_API + '?action=redeem&code=' + encodeURIComponent(appliedPromo.code) + '&phone=' + phone + '&total=' + total;
+      const data = await (await fetch(url)).json();
+      if (!data.ok) { alert('Промокод больше недействителен: ' + (data.error || '')); appliedPromo = null; updateCart(); return false; }
+      return true;
+    } catch (e) { return true; } // network hiccup shouldn't block the order; you verify the code on WhatsApp
+  }
+  function removePromo() {
+    appliedPromo = null;
+    document.getElementById('promoInput').value = '';
+    updateCart();
+  }
+  window.applyPromo = applyPromo; window.removePromo = removePromo;
+
+  function updateCart() {
+    const body = document.getElementById('cartBody');
+    const form = document.getElementById('cartForm');
+    const count = document.getElementById('cartCount');
+    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
+    count.textContent = itemCount;
+    if (itemCount > 0) count.classList.add('active'); else count.classList.remove('active');
+    if (cart.length === 0) {
+      body.innerHTML = `
+        <div class="cart-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <h4>Корзина пуста</h4>
+          <p>Добавьте изделия из каталога</p>
+        </div>`;
+      form.classList.add('hidden');
+    } else {
+      body.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-img" style="background-image: url('${(item.imgs && item.imgs[0]) || item.img}');"></div>
+          <div class="cart-item-info">
+            <h5>${item.name}</h5>
+            ${item.size ? `<div class="cart-item-size">Размер: ${item.size}</div>` : ''}
+            <div class="cart-item-price">${(item.price * item.qty).toLocaleString('ru-RU')} ₸</div>
+            <div class="qty">
+              <button onclick="changeQty('${item.lineId}', -1)">−</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty('${item.lineId}', 1)">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart('${item.lineId}')" aria-label="Удалить">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 01-2 2H9a2 2 0 01-2-2L5 6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          </button>
+        </div>
+      `).join('');
+      form.classList.remove('hidden');
+      renderCartTotals(total);
+    }
+  }
+  function renderCartTotals(subtotal) {
+    let discount = 0, freeShip = false, dropNote = '';
+    if (appliedPromo) {
+      const res = computeDiscount(subtotal, appliedPromo);
+      if (res.error) { dropNote = res.error; appliedPromo = null; }
+      else { discount = res.discount || 0; freeShip = !!res.freeShipping; }
+    }
+    const grand = Math.max(0, subtotal - discount);
+    let summary = `<div class="sum-row"><span>Сумма</span><span>${subtotal.toLocaleString('ru-RU')} ₸</span></div>`;
+    if (discount > 0) summary += `<div class="sum-row discount"><span>Промокод «${appliedPromo.code}»</span><span>−${discount.toLocaleString('ru-RU')} ₸</span></div>`;
+    if (freeShip)     summary += `<div class="sum-row discount"><span>Промокод «${appliedPromo.code}»</span><span>бесплатная доставка</span></div>`;
+    document.getElementById('cartSummary').innerHTML = (discount > 0 || freeShip) ? summary : '';
+    document.getElementById('cartTotal').textContent = grand.toLocaleString('ru-RU') + ' ₸';
+    const msg = document.getElementById('promoMsg');
+    const input = document.getElementById('promoInput');
+    if (appliedPromo) {
+      input.value = appliedPromo.code;
+      msg.innerHTML = '✓ Промокод применён <span class="promo-remove" onclick="removePromo()">убрать</span>';
+      msg.className = 'promo-msg ok';
+    } else if (dropNote) {
+      msg.textContent = dropNote; msg.className = 'promo-msg err';
+    } else {
+      msg.textContent = ''; msg.className = 'promo-msg';
+    }
+  }
+  function openCart() {
+    document.getElementById('cartOverlay').classList.add('open');
+    document.getElementById('cartDrawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart() {
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.pay-option').forEach(opt => {
+    const select = () => {
+      document.querySelectorAll('.pay-option').forEach(o => { o.classList.remove('selected'); o.setAttribute('aria-checked', 'false'); });
+      opt.classList.add('selected'); opt.setAttribute('aria-checked', 'true');
+    };
+    opt.addEventListener('click', select);
+    opt.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(); } });
+  });
+  function buildOrderMessage() {
+    const name = document.getElementById('customerName').value || 'не указано';
+    const phone = document.getElementById('customerPhone').value || 'не указан';
+    const date = document.getElementById('deliveryDate').value || 'не указана';
+    const time = document.getElementById('deliveryTime').value;
+    const address = document.getElementById('deliveryAddress').value || 'не указан';
+    const comment = document.getElementById('comment').value || '—';
+    const pay = document.querySelector('.pay-option.selected')?.dataset.pay || 'не выбран';
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    let discount = 0, freeShip = false;
+    if (appliedPromo) {
+      const res = computeDiscount(subtotal, appliedPromo);
+      if (!res.error) { discount = res.discount || 0; freeShip = !!res.freeShipping; }
+    }
+    const grand = Math.max(0, subtotal - discount);
+    let msg = `✦ НОВЫЙ ЗАКАЗ ZINNÁTI\n\n`;
+    msg += `Клиент: ${name}\nТелефон: ${phone}\n\nЗАКАЗ:\n`;
+    cart.forEach(item => { msg += `• ${item.name}${item.size ? ' (' + item.size + ')' : ''} × ${item.qty} = ${(item.price * item.qty).toLocaleString('ru-RU')} ₸\n`; });
+    if (discount > 0 || freeShip) {
+      msg += `\nСумма: ${subtotal.toLocaleString('ru-RU')} ₸\n`;
+      if (discount > 0) msg += `Промокод ${appliedPromo.code}: −${discount.toLocaleString('ru-RU')} ₸\n`;
+      if (freeShip)     msg += `Промокод ${appliedPromo.code}: бесплатная доставка\n`;
+    }
+    msg += `\nИтого: ${grand.toLocaleString('ru-RU')} ₸\n\n`;
+    msg += `Дата/примерка: ${date}, ${time}\nГород/адрес: ${address}\nОплата: ${pay}\n`;
+    if (comment !== '—') msg += `\nКомментарий: ${comment}`;
+    return msg;
+  }
+  // fire-and-forget new-order alert to the seller (Telegram via Apps Script)
+  function notifyOrderBot(text) {
+    if (!PROMO_API) return;
+    try { fetch(PROMO_API + '?action=order&text=' + encodeURIComponent(text)).catch(() => {}); } catch (e) {}
+  }
+  async function orderViaWhatsApp() {
+    if (cart.length === 0) { alert('Корзина пуста'); return; }
+    if (!(await consumePromo())) return;
+    const text = buildOrderMessage();
+    notifyOrderBot(text);
+    window.open(`https://wa.me/77015336339?text=${encodeURIComponent(text)}`, '_blank');
+  }
+  async function submitOrder() {
+    if (cart.length === 0) { alert('Корзина пуста'); return; }
+    const phone = document.getElementById('customerPhone').value;
+    const name = document.getElementById('customerName').value;
+    if (!phone || !name) { alert('Пожалуйста, укажите имя и телефон'); return; }
+    if (!(await consumePromo())) return;
+    const text = buildOrderMessage();
+    notifyOrderBot(text);
+    window.open(`https://wa.me/77015336339?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  // ============ HEADER SCROLL ============
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+  });
+
+  // ============ REVEAL ON SCROLL ============
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ============ CHATBOT ============
+  (function () {
+    const panel = document.getElementById('chatPanel');
+    const toggleBtn = document.getElementById('chatToggle');
+    const notifDot = document.getElementById('chatNotifDot');
+    const messagesEl = document.getElementById('chatMessages');
+    const suggestEl = document.getElementById('chatSuggestions');
+    const inputEl = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSendBtn');
+    let isOpen = false, hasOpened = false, unmatchedCount = 0, idleSent = false, idleTimer = null;
+
+    function openChat() {
+      isOpen = true; panel.classList.add('open');
+      if (!hasOpened) { hasOpened = true; notifDot.style.display = 'none'; startWelcomeFlow(); }
+      resetIdle();
+    }
+    function closeChat() { isOpen = false; panel.classList.remove('open'); clearTimeout(idleTimer); }
+    toggleBtn.addEventListener('click', () => isOpen ? closeChat() : openChat());
+    document.getElementById('chatClose').addEventListener('click', closeChat);
+    setTimeout(() => { toggleBtn.classList.add('pulsing'); setTimeout(() => toggleBtn.classList.remove('pulsing'), 3200); }, 1200);
+
+    function resetIdle() {
+      clearTimeout(idleTimer);
+      if (idleSent) return;
+      idleTimer = setTimeout(() => { if (isOpen && !idleSent) { idleSent = true; addBotMsg('Я всё ещё здесь, если появятся вопросы ✦'); } }, 30000);
+    }
+    function now() { return new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }); }
+    function scroll() { requestAnimationFrame(() => { messagesEl.scrollTop = messagesEl.scrollHeight; }); }
+    function clearSuggestions() { suggestEl.innerHTML = ''; }
+    function addBotMsg(text) {
+      const w = document.createElement('div'); w.className = 'chat-msg-wrap bot';
+      w.innerHTML = `<div class="chat-bubble bot">${text.replace(/\n/g, '<br>')}</div><span class="chat-time">${now()}</span>`;
+      messagesEl.appendChild(w); scroll();
+    }
+    function addUserMsg(text) {
+      clearSuggestions();
+      const w = document.createElement('div'); w.className = 'chat-msg-wrap user';
+      w.innerHTML = `<div class="chat-bubble user">${text}</div><span class="chat-time">${now()}</span>`;
+      messagesEl.appendChild(w); scroll();
+    }
+    function showTyping() {
+      const w = document.createElement('div'); w.className = 'chat-msg-wrap bot _typing';
+      w.innerHTML = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+      messagesEl.appendChild(w); scroll(); return w;
+    }
+    function removeTyping() { const t = messagesEl.querySelector('._typing'); if (t) t.remove(); }
+    function botMsg(text, delay) { return new Promise(res => { showTyping(); setTimeout(() => { removeTyping(); addBotMsg(text); res(); }, delay || 900); }); }
+    function addSuggestions(list) {
+      clearSuggestions();
+      list.forEach(b => {
+        const el = document.createElement('button'); el.className = 'chat-sugg-btn'; el.textContent = b.label;
+        el.addEventListener('click', () => { addUserMsg(b.label); clearSuggestions(); b.action && b.action(); });
+        suggestEl.appendChild(el);
+      });
+      scroll();
+    }
+    function addWALink(label, url) {
+      const a = document.createElement('a'); a.className = 'chat-wa-link'; a.href = url; a.target = '_blank';
+      a.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>${label}`;
+      messagesEl.appendChild(a); scroll();
+    }
+    function showProductCards(list) {
+      const row = document.createElement('div'); row.className = 'chat-product-scroll';
+      list.forEach(p => {
+        const card = document.createElement('div'); card.className = 'chat-product-card';
+        card.innerHTML = `
+          <img class="chat-product-img" src="${p.img}" alt="${p.name}" loading="lazy">
+          <div class="chat-product-info">
+            <div class="chat-product-name">${p.name}</div>
+            <div class="chat-product-price">${p.price.toLocaleString('ru-RU')} ₸</div>
+            <div class="chat-product-actions">
+              <button class="chat-card-btn primary">Заказать</button>
+              <button class="chat-card-btn ghost">Подробнее</button>
+            </div>
+          </div>`;
+        card.querySelector('.chat-card-btn.primary').addEventListener('click', () => orderProduct(p));
+        card.querySelector('.chat-card-btn.ghost').addEventListener('click', () => { closeChat(); document.getElementById('catalog') && document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' }); });
+        row.appendChild(card);
+      });
+      messagesEl.appendChild(row); scroll();
+    }
+
+    const mainMenu = () => [
+      { label: 'Подобрать изделие', action: flowPick },
+      { label: 'Запись на примерку', action: flowFitting },
+      { label: 'Доставка по миру', action: flowDelivery },
+      { label: 'Связаться со стилистом', action: flowContact },
+    ];
+
+    async function startWelcomeFlow() {
+      await botMsg('Здравствуйте! ✦ Я Аружан, стилист ZINNÁTI. Помогу подобрать изделие, расскажу про примерку, материалы и доставку.', 1000);
+      await botMsg('С чего начнём?', 800);
+      addSuggestions(mainMenu());
+    }
+    async function flowPick() {
+      await botMsg('С удовольствием! Что вас интересует?', 800);
+      addSuggestions([
+        { label: 'Джемпер / топ', action: () => flowBudget('Джемпер', 'tops') },
+        { label: 'Платье', action: () => flowBudget('Платье', 'dresses') },
+        { label: 'Кардиган', action: () => flowBudget('Кардиган', 'cardigans') },
+        { label: 'Топ / жилет', action: () => flowBudget('Топ', 'tops') },
+        { label: 'Комплект', action: () => flowBudget('Комплект', 'sets') },
+        { label: 'Аксессуар', action: () => flowBudget('Аксессуар', 'accessories') },
+      ]);
+    }
+    async function flowBudget(type, cat) {
+      await botMsg('Какой бюджет рассматриваете?', 800);
+      addSuggestions([
+        { label: 'До 50 000 ₸', action: () => flowProducts(type, cat, 0, 50000) },
+        { label: '50 000 — 80 000 ₸', action: () => flowProducts(type, cat, 50000, 80000) },
+        { label: '80 000 — 120 000 ₸', action: () => flowProducts(type, cat, 80000, 120000) },
+        { label: 'Свыше 120 000 ₸', action: () => flowProducts(type, cat, 120000, Infinity) },
+      ]);
+    }
+    async function flowProducts(type, cat, minP, maxP) {
+      await botMsg(`Подбираю варианты «${type}»...`, 1300);
+      let list = products.filter(p => p.cat === cat && p.price >= minP && p.price <= maxP);
+      if (!list.length) list = products.filter(p => p.cat === cat);
+      if (!list.length) list = products.slice(0, 3);
+      list = list.slice(0, 3);
+      addBotMsg('Вот подходящие варианты:');
+      showProductCards(list);
+      addSuggestions([
+        { label: 'Другой тип', action: flowPick },
+        { label: 'Другой бюджет', action: () => flowBudget(type, cat) },
+      ]);
+    }
+    async function orderProduct(p) {
+      clearSuggestions();
+      await botMsg(`Прекрасный выбор! «${p.name}» — ${p.price.toLocaleString('ru-RU')} ₸. Переведу вас к стилисту в WhatsApp с уже заполненным сообщением.`, 1100);
+      const msg = `Здравствуйте! Хочу заказать: ${p.name} — ${p.price.toLocaleString('ru-RU')} ₸ (из чата на сайте ZINNÁTI)`;
+      addWALink('Перейти в WhatsApp', `https://wa.me/77015336339?text=${encodeURIComponent(msg)}`);
+    }
+    async function flowFitting() {
+      await botMsg('Индивидуальная примерка проходит в шоуруме Астаны по предварительной записи. Мы снимем мерки, подберём силуэт, длину и оттенок именно под вас.', 1200);
+      await botMsg('Слоты: 10:00–12:00, 12:00–14:00, 14:00–16:00, 16:00–18:00, 18:00–20:00. Записать вас?', 1000);
+      addWALink('Записаться в WhatsApp', 'https://wa.me/77015336339?text=' + encodeURIComponent('Здравствуйте! Хочу записаться на примерку ZINNÁTI'));
+      addSuggestions([ { label: 'Подобрать изделие', action: flowPick }, { label: 'Доставка по миру', action: flowDelivery } ]);
+    }
+    async function flowDelivery() {
+      await botMsg('Доставляем по всему миру, бережно упаковывая каждое изделие:', 800);
+      await botMsg('📍 Астана — бесплатно (примерка / самовывоз)\n📍 Казахстан — от 2 000 ₸\n📍 СНГ — от 6 000 ₸\n📍 Европа и мир — от 12 000 ₸\n\n✦ Бесплатно при заказе от 150 000 ₸', 1300);
+      addSuggestions([ { label: 'Подобрать изделие', action: flowPick }, { label: 'Про материалы', action: flowMaterials }, { label: 'Связаться со стилистом', action: flowContact } ]);
+    }
+    async function flowMaterials() {
+      await botMsg('Мы работаем только с благородными натуральными волокнами: кашемир, мериносовая шерсть и хлопок премиум-класса. Каждое изделие вяжется вручную и служит годами. 🧶', 1200);
+      addSuggestions([ { label: 'Подобрать изделие', action: flowPick }, { label: 'Запись на примерку', action: flowFitting } ]);
+    }
+    async function flowContact() {
+      await botMsg('Конечно! Переведу вас на стилиста в WhatsApp. Опишите, что вы ищете, и мы поможем подобрать идеальное изделие.', 1000);
+      addWALink('Открыть WhatsApp', 'https://wa.me/77015336339?text=' + encodeURIComponent('Здравствуйте! Пишу из чата на сайте ZINNÁTI.'));
+    }
+
+    function clean(t) { return t.toLowerCase().replace(/[^\wа-яёa-z\s]/gi, ''); }
+    function has(t) { const kws = Array.prototype.slice.call(arguments, 1); return kws.some(k => t.includes(k)); }
+
+    async function handleText(raw) {
+      resetIdle();
+      const t = clean(raw);
+      if (has(t, 'привет', 'здравствуй', 'добрый', 'салам', 'hello', 'hi', 'хай')) {
+        unmatchedCount = 0; await botMsg('Здравствуйте! Чем могу помочь? Могу подобрать изделие или рассказать про примерку, материалы и доставку.', 800); addSuggestions(mainMenu()); return;
+      }
+      if (has(t, 'цен', 'сколько', 'стоимост', 'стоит', 'бюджет')) {
+        unmatchedCount = 0; await botMsg('Изделия у нас от 18 000 ₸. Подберу варианты под ваш бюджет — что вас интересует?', 1000); await flowPick(); return;
+      }
+      if (has(t, 'примерк', 'мерк', 'записать', 'запис', 'шоурум')) { unmatchedCount = 0; await flowFitting(); return; }
+      if (has(t, 'достав', 'привез', 'отправ', 'мир', 'город')) { unmatchedCount = 0; await flowDelivery(); return; }
+      if (has(t, 'материал', 'кашемир', 'меринос', 'шерст', 'хлопок', 'состав', 'волокн')) { unmatchedCount = 0; await flowMaterials(); return; }
+      if (has(t, 'размер', 'посадк', 'мерк', 'фигур')) {
+        unmatchedCount = 0; await botMsg('Мы шьём по индивидуальным меркам, поэтому изделие сядет идеально. Лучше всего — записаться на примерку или прислать мерки онлайн.', 1100); await flowFitting(); return;
+      }
+      if (has(t, 'свитер', 'джемпер')) { unmatchedCount = 0; await botMsg('Да, у нас прекрасные свитеры из кашемира и мериноса. Показать варианты?', 900); addSuggestions([{ label: 'Показать джемперы', action: () => flowBudget('Джемпер', 'tops') }]); return; }
+      if (has(t, 'плать')) { unmatchedCount = 0; await botMsg('Вязаные платья — наша гордость. Показать варианты?', 900); addSuggestions([{ label: 'Показать платья', action: () => flowBudget('Платье', 'dresses') }]); return; }
+      if (has(t, 'кардиган')) { unmatchedCount = 0; await botMsg('Кардиганы есть в нескольких силуэтах и оттенках. Показать?', 900); addSuggestions([{ label: 'Показать кардиганы', action: () => flowBudget('Кардиган', 'cardigans') }]); return; }
+      if (has(t, 'оплат', 'kaspi', 'каспи', 'карт', 'перевод')) { unmatchedCount = 0; await botMsg('Принимаем оплату удобным способом: Kaspi, банковская карта, перевод. ✅', 1000); addSuggestions(mainMenu()); return; }
+      if (has(t, 'заказ', 'купить', 'хочу', 'оформ')) { unmatchedCount = 0; await flowPick(); return; }
+      unmatchedCount++;
+      if (unmatchedCount >= 3) {
+        unmatchedCount = 0;
+        await botMsg('Кажется, я не совсем поняла запрос. Переведу вас на живого стилиста — он точно поможет!', 1000);
+        addWALink('Открыть WhatsApp', 'https://wa.me/77015336339?text=' + encodeURIComponent('Здравствуйте! Пишу из чата на сайте ZINNÁTI.'));
+        addSuggestions(mainMenu());
+      } else {
+        await botMsg('Хм, не уверена что поняла. Могу помочь с выбором изделия, примеркой, материалами или доставкой. Перевести вас на стилиста?', 1000);
+        addSuggestions(mainMenu());
+      }
+    }
+    inputEl.addEventListener('input', () => { sendBtn.disabled = !inputEl.value.trim(); });
+    inputEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
+    sendBtn.addEventListener('click', send);
+    function send() {
+      const text = inputEl.value.trim(); if (!text) return;
+      inputEl.value = ''; sendBtn.disabled = true; addUserMsg(text); handleText(text);
+    }
+  })();
+
+  // ============ INIT ============
+  loadProducts();
+  if (!PROMO_API) loadPromos();   // with a server endpoint we never ship the code list to the browser
+  updateCart();
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+  document.getElementById('deliveryDate').valueAsDate = tomorrow;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Secrets — Apps Script holds the Telegram bot token; never publish it
+promo-apps-script.gs
+
+# OS / tooling
+.DS_Store
+.claude/
+
+# Local preview config
+.claude/launch.json
+
+# Source materials (not needed for the live site; large / private)
+*.pdf

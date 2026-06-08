@@ -1,0 +1,7 @@
+code,type,value,minOrder,expires,active,maxUses
+WELCOME10,percent,10,,,TRUE,
+ZINNATI5000,fixed,5000,50000,,TRUE,
+FREEDELIVERY,shipping,0,,,TRUE,
+SUMMER15,percent,15,,2026-08-31,TRUE,
+VIP20,percent,20,100000,,FALSE,
+SINGLE25,percent,25,,,TRUE,1
