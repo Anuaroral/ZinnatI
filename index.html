@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZINNÁTI — Timeless Knitwear · Премиальный трикотаж</title>
-<meta name="description" content="ZINNÁTI — премиальный трикотаж ручной работы. Создано женщинами для женщин. Индивидуальная примерка в Астане, доставка по миру.">
+<meta name="description" content="ZINNÁTI — Timeless knitwear. Трикотажный бренд с собственным производством. Создано женщинами для женщин. Индивидуальная примерка в Астане, доставка по всему Казахстану и миру.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -372,6 +372,11 @@
   }
   .occasion:hover .occasion-arrow { background: white; color: var(--charcoal); }
   .occasion-arrow svg { width: 16px; height: 16px; }
+  .occasion-btn {
+    display: none; margin-top: 12px; padding: 10px 22px; border-radius: 100px;
+    background: rgba(255,255,255,0.92); color: var(--charcoal); font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; width: fit-content;
+  }
   .occasion.large { grid-row: span 2; aspect-ratio: auto; }
 
   /* ============ ABOUT ============ */
@@ -381,7 +386,7 @@
   .about-img-1 { position: absolute; inset: 0; background: #f5ede9 url('images/logo_zinnati_8.jpg') center/contain no-repeat; border-radius: 4px; border: 1px solid var(--line); }
   .about-text h2 { font-size: clamp(36px, 4vw, 56px); margin-bottom: 32px; }
   .about-text p { color: var(--ash); margin-bottom: 24px; font-size: 16px; line-height: 1.7; }
-  .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--line); }
+  .about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--line); }
   .stat-num { font-family: var(--serif); font-size: 44px; color: var(--wine); line-height: 1; margin-bottom: 6px; }
   .stat-label { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash); }
 
@@ -398,16 +403,6 @@
   .delivery-zones li:last-child { border-bottom: none; }
   .zone-price { font-family: var(--serif); font-size: 18px; color: var(--wine); }
 
-  /* ============ REVIEWS ============ */
-  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .review { background: var(--ivory); padding: 40px 32px; border-radius: 4px; position: relative; }
-  .review::before { content: '"'; position: absolute; top: -16px; left: 24px; font-family: var(--serif); font-size: 100px; color: var(--wine-soft); line-height: 1; }
-  .review-stars { color: var(--gold); margin-bottom: 16px; font-size: 14px; letter-spacing: 2px; }
-  .review-text { font-family: var(--serif); font-size: 18px; line-height: 1.5; margin-bottom: 24px; font-style: italic; color: var(--charcoal); }
-  .review-author { display: flex; align-items: center; gap: 12px; }
-  .review-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--wine-soft); display: grid; place-items: center; font-family: var(--serif); font-size: 18px; color: var(--wine); font-weight: 500; }
-  .review-name { font-size: 14px; font-weight: 500; }
-  .review-date { font-size: 12px; color: var(--ash); }
 
   /* ============ CTA ============ */
   .cta { padding: 140px 0; background: var(--wine-deep); color: var(--cream); text-align: center; position: relative; overflow: hidden; }
@@ -535,6 +530,8 @@
     .hero-decor.top { display: none; }
     .products { grid-template-columns: repeat(3, 1fr); }
     .occasions-grid { grid-template-columns: repeat(2, 1fr); grid-template-areas: none; grid-template-rows: auto; height: auto; }
+    .occasion-btn { display: inline-block; }
+    .occasion-arrow { display: none; }
     .occasions-grid .occasion { aspect-ratio: 3/4; }
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
     .about-images { height: 500px; }
@@ -571,7 +568,6 @@
     .about-stats { gap: 12px; }
     .stat-num { font-size: 32px; }
     .delivery-card { padding: 28px 20px; }
-    .reviews-grid { grid-template-columns: 1fr; }
     .cta { padding: 80px 0; }
     .footer-grid { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
     .footer-bottom { flex-direction: column; text-align: center; }
@@ -692,8 +688,8 @@
     <div class="hero-grid">
       <div class="hero-text">
         <div class="hero-eyebrow">Timeless knitwear · Астана · Доставка по миру</div>
-        <h1 class="hero-title">Тепло, что<br>создано <em>для вас</em></h1>
-        <p class="hero-desc">Премиальный трикотаж ручной работы. Создано женщинами для женщин — для тех, кто ценит безупречную посадку и благородные натуральные волокна.</p>
+        <h1 class="hero-title">Комфорт, что<br>создан <em>для вас</em></h1>
+        <p class="hero-desc">Трикотажный бренд с собственным производством. Создано женщинами для женщин — для тех, кто ценит безупречную посадку и высокое качество.</p>
         <div class="hero-actions">
           <a href="#catalog" class="btn btn-primary">
             Смотреть коллекцию
@@ -706,10 +702,6 @@
         </div>
       </div>
       <div class="hero-image">
-        <div class="hero-stat">
-          <div class="hero-stat-number">100%</div>
-          <div class="hero-stat-label">Натуральные волокна</div>
-        </div>
         <div class="hero-image-main"></div>
         <div class="hero-caption">Get ready for the summer</div>
       </div>
@@ -723,13 +715,13 @@
     <div class="trust-grid">
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        <div class="trust-title">Ручная работа</div>
-        <div class="trust-desc">Каждое изделие<br>вяжется вручную</div>
+        <div class="trust-title">Собственное производство</div>
+        <div class="trust-desc">В Астане — контролируем<br>каждый этап</div>
       </div>
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <div class="trust-title">Натуральные волокна</div>
-        <div class="trust-desc">Кашемир, меринос<br>и премиум-хлопок</div>
+        <div class="trust-title">Высокое качество пряжи</div>
+        <div class="trust-desc">Работаем только с проверенными<br>поставщиками</div>
       </div>
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/></svg></div>
@@ -750,8 +742,8 @@
   <div class="container">
     <div class="section-header reveal">
       <div class="section-eyebrow">Каталог</div>
-      <h2 class="section-title">Вещи <em>вне времени</em></h2>
-      <p class="section-desc">Каждое изделие связано вручную из благородных волокон и может быть пошито по вашим меркам. Цены указаны в тенге.</p>
+      <h2 class="section-title">Трикотаж <em>вне времени</em></h2>
+      <p class="section-desc">Мы создаём изделия, которые не выходят из моды и благодаря высокому качеству служат не один год. Цены указаны в тенге.</p>
     </div>
     <div class="catalog-tabs reveal">
       <button class="tab active" data-cat="all">Все</button>
@@ -803,25 +795,25 @@
         <div class="occasion-img" style="background-image: url('images/grace-2.jpg');"></div>
         <div class="occasion-overlay"></div>
         <div class="occasion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-        <div class="occasion-content"><div class="occasion-title">Вечер</div></div>
+        <div class="occasion-content"><div class="occasion-title">Вечер</div><span class="occasion-btn">Смотреть</span></div>
       </div>
       <div class="occasion cap-office" role="button" tabindex="0" onclick="filterCapsule('офис','Офис')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterCapsule('офис','Офис')}">
         <div class="occasion-img" style="background-image: url('images/vega.jpg');"></div>
         <div class="occasion-overlay"></div>
         <div class="occasion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-        <div class="occasion-content"><div class="occasion-title">Офис</div></div>
+        <div class="occasion-content"><div class="occasion-title">Офис</div><span class="occasion-btn">Смотреть</span></div>
       </div>
       <div class="occasion cap-casual" role="button" tabindex="0" onclick="filterCapsule('повседневный','Повседневный')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterCapsule('повседневный','Повседневный')}">
         <div class="occasion-img" style="background-image: url('images/code.jpg');"></div>
         <div class="occasion-overlay"></div>
         <div class="occasion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-        <div class="occasion-content"><div class="occasion-title">Повседневный</div></div>
+        <div class="occasion-content"><div class="occasion-title">Повседневный</div><span class="occasion-btn">Смотреть</span></div>
       </div>
       <div class="occasion cap-leisure" role="button" tabindex="0" onclick="filterCapsule('отдых','Отдых')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterCapsule('отдых','Отдых')}">
         <div class="occasion-img" style="background-image: url('images/set-vest-shorts.jpg');"></div>
         <div class="occasion-overlay"></div>
         <div class="occasion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-        <div class="occasion-content"><div class="occasion-title">Отдых</div></div>
+        <div class="occasion-content"><div class="occasion-title">Отдых</div><span class="occasion-btn">Смотреть</span></div>
       </div>
     </div>
   </div>
@@ -846,7 +838,7 @@
           <div class="slot">18:00 — 20:00</div>
           <div class="slot">По договорённости</div>
         </div>
-        <p style="font-size: 13px; color: var(--ash); line-height: 1.6;">Снимем мерки, подберём силуэт, длину и оттенок индивидуально под вас. Запись через WhatsApp или Instagram.</p>
+        <p style="font-size: 13px; color: var(--ash); line-height: 1.6;">Примерка осуществляется в закрытом шоуруме в г. Астана. Для записи на примерку напишите менеджеру в WhatsApp — кнопка «Записаться».</p>
       </div>
       <div class="delivery-card">
         <h3>Доставка по миру</h3>
@@ -855,7 +847,7 @@
           <li><span>Казахстан</span><span class="zone-price">от 2 000 ₸</span></li>
           <li><span>СНГ</span><span class="zone-price">от 6 000 ₸</span></li>
           <li><span>Европа и мир</span><span class="zone-price">от 12 000 ₸</span></li>
-          <li><span>При заказе от 150 000 ₸</span><span class="zone-price" style="color: var(--blue-deep);">Бесплатно</span></li>
+          <li><span>По Астане при заказе от 130 000 ₸</span><span class="zone-price" style="color: var(--blue-deep);">Бесплатно</span></li>
         </ul>
       </div>
     </div>
@@ -872,40 +864,13 @@
       <div class="about-text reveal">
         <div class="section-eyebrow">О нас</div>
         <h2>Создано женщинами <em>для женщин</em></h2>
-        <p>ZINNÁTI — это небольшая мастерская премиального трикотажа, где каждое изделие создаётся вручную с вниманием к каждой петле. Мы одеваем женщину в то, что обнимает её фигуру и подчёркивает естественную красоту.</p>
-        <p>Мы выбираем только благородные натуральные волокна — кашемир, мериносовую шерсть и хлопок премиум-класса. Никакой массовости: только ограниченные коллекции и вещи, которые служат годами.</p>
+        <p>Zinnati — это бренд, созданный женщинами для женщин, которые выбирают уверенность вместо громких логотипов. Мы верим, что статус не требует демонстрации, а подлинная элегантность заключается в качестве, комфорте и осмысленном подходе к стилю.</p>
+        <p>Наша философия — простота как высшая форма комфорта. Zinnati — это «умная» база, где каждый элемент работает как конструктор, идеально сочетаясь с другими. Вместо двадцати однотипных вещей мы предлагаем инвестировать в пять безупречных изделий, которые сохранят вашу энергию для действительно важных дел.</p>
+        <p>Наша миссия — освободить современную женщину от сложности выбора, создавая трикотаж, который подстраивается под её ритм жизни и остаётся актуальным вне времени.</p>
         <div class="about-stats">
-          <div><div class="stat-num">5 лет</div><div class="stat-label">мастерству</div></div>
-          <div><div class="stat-num">3 000+</div><div class="stat-label">изделий</div></div>
-          <div><div class="stat-num">4.9 ★</div><div class="stat-label">рейтинг</div></div>
+          <div><div class="stat-num">2020</div><div class="stat-label">год основания</div></div>
+          <div><div class="stat-num">500+</div><div class="stat-label">изделий</div></div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REVIEWS -->
-<section class="section">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">Отзывы</div>
-      <h2 class="section-title">Что <em>говорят</em> о нас</h2>
-    </div>
-    <div class="reviews-grid reveal">
-      <div class="review">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">Свитер сел идеально, будто связан точно по мне. Кашемир невероятно мягкий, ношу почти не снимая. Это совсем другой уровень.</p>
-        <div class="review-author"><div class="review-avatar">А</div><div><div class="review-name">Айгерим К.</div><div class="review-date">Instagram · 12 апреля 2026</div></div></div>
-      </div>
-      <div class="review">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">Заказывала платье из другого города — сняли мерки онлайн, всё объяснили, доставили бережно. Посадка безупречная. Спасибо девочкам!</p>
-        <div class="review-author"><div class="review-avatar">Д</div><div><div class="review-name">Динара М.</div><div class="review-date">2GIS · 3 апреля 2026</div></div></div>
-      </div>
-      <div class="review">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">Примерка в шоуруме — отдельное удовольствие. Подобрали оттенок и длину под мою фигуру. Кардиган ношу уже год, выглядит как новый.</p>
-        <div class="review-author"><div class="review-avatar">М</div><div><div class="review-name">Мадина Т.</div><div class="review-date">2GIS · 28 марта 2026</div></div></div>
       </div>
     </div>
   </div>
@@ -931,7 +896,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#" class="logo">ZINN<span>ÁTI</span><small>Always fits perfect</small></a>
-        <p>Timeless knitwear. Премиальный трикотаж ручной работы. Создано женщинами для женщин. Индивидуальная примерка в Астане, доставка по миру.</p>
+        <p>Timeless knitwear. Трикотажный бренд с собственным производством. Создано женщинами для женщин. Индивидуальная примерка в Астане, доставка по всему Казахстану и миру.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/zinnati.kz/" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
           <a href="https://wa.me/77015336339" class="social-icon" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg></a>
@@ -1719,7 +1684,7 @@
       addWALink('Перейти в WhatsApp', `https://wa.me/77015336339?text=${encodeURIComponent(msg)}`);
     }
     async function flowFitting() {
-      await botMsg('Индивидуальная примерка проходит в шоуруме Астаны по предварительной записи. Мы снимем мерки, подберём силуэт, длину и оттенок именно под вас.', 1200);
+      await botMsg('Примерка проходит в закрытом шоуруме в Астане по предварительной записи. Поможем подобрать размер, силуэт и оттенок именно под вас.', 1200);
       await botMsg('Слоты: 10:00–12:00, 12:00–14:00, 14:00–16:00, 16:00–18:00, 18:00–20:00. Записать вас?', 1000);
       addWALink('Записаться в WhatsApp', 'https://wa.me/77015336339?text=' + encodeURIComponent('Здравствуйте! Хочу записаться на примерку ZINNÁTI'));
       addSuggestions([ { label: 'Подобрать изделие', action: flowPick }, { label: 'Доставка по миру', action: flowDelivery } ]);
@@ -1754,7 +1719,7 @@
       if (has(t, 'достав', 'привез', 'отправ', 'мир', 'город')) { unmatchedCount = 0; await flowDelivery(); return; }
       if (has(t, 'материал', 'кашемир', 'меринос', 'шерст', 'хлопок', 'состав', 'волокн')) { unmatchedCount = 0; await flowMaterials(); return; }
       if (has(t, 'размер', 'посадк', 'мерк', 'фигур')) {
-        unmatchedCount = 0; await botMsg('Мы шьём по индивидуальным меркам, поэтому изделие сядет идеально. Лучше всего — записаться на примерку или прислать мерки онлайн.', 1100); await flowFitting(); return;
+        unmatchedCount = 0; await botMsg('Наш трикотаж отлично садится по фигуре — размеры Small и Tall. Лучше всего записаться на примерку в шоуруме, поможем подобрать ваш размер.', 1100); await flowFitting(); return;
       }
       if (has(t, 'свитер', 'джемпер')) { unmatchedCount = 0; await botMsg('Да, у нас прекрасные свитеры из кашемира и мериноса. Показать варианты?', 900); addSuggestions([{ label: 'Показать джемперы', action: () => flowBudget('Джемпер', 'tops') }]); return; }
       if (has(t, 'плать')) { unmatchedCount = 0; await botMsg('Вязаные платья — наша гордость. Показать варианты?', 900); addSuggestions([{ label: 'Показать платья', action: () => flowBudget('Платье', 'dresses') }]); return; }
