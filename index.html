@@ -426,6 +426,40 @@
   .social-icon svg { width: 16px; height: 16px; }
   .footer-bottom { padding-top: 32px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--ash); }
 
+  /* ============ PRODUCT PAGE ============ */
+  .product-page { position: fixed; inset: 0; z-index: 150; background: var(--cream); overflow-y: auto; display: none; }
+  .product-page.open { display: block; }
+  .pp-inner { max-width: 1180px; margin: 0 auto; padding: 100px 32px 80px; }
+  .pp-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 28px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ash); background: none; border: none; cursor: pointer; transition: color 0.2s; }
+  .pp-back:hover { color: var(--wine); }
+  .pp-back svg { width: 16px; height: 16px; }
+  .pp-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: start; }
+  .pp-gallery { display: flex; flex-direction: column; gap: 14px; }
+  .pp-main { width: 100%; aspect-ratio: 3/4; background: var(--cream-deep); border-radius: 4px; overflow: hidden; box-shadow: var(--shadow-sm); }
+  .pp-main img { width: 100%; height: 100%; object-fit: cover; }
+  .pp-thumbs { display: flex; gap: 12px; flex-wrap: wrap; }
+  .pp-thumb { width: 84px; aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; opacity: 0.6; transition: all 0.2s; background: var(--cream-deep); }
+  .pp-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .pp-thumb.active, .pp-thumb:hover { opacity: 1; border-color: var(--wine); }
+  .pp-info { padding-top: 4px; }
+  .pp-badge { display: inline-block; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; padding: 5px 14px; border-radius: 100px; margin-bottom: 16px; background: var(--wine); color: var(--cream); }
+  .pp-badge.new { background: var(--blue); color: #fff; }
+  .pp-name { font-family: var(--serif); font-size: clamp(30px, 4vw, 46px); margin-bottom: 12px; line-height: 1.1; }
+  .pp-desc { color: var(--ash); font-size: 16px; line-height: 1.7; margin-bottom: 26px; }
+  .pp-price { display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px; }
+  .pp-price .now { font-family: var(--serif); font-size: 34px; color: var(--charcoal); }
+  .pp-price .old { font-size: 20px; color: var(--ash); text-decoration: line-through; }
+  .pp-size-label { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash); margin-bottom: 12px; }
+  .pp-actions { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+  .pp-add { flex: 1; min-width: 200px; padding: 18px; background: var(--wine); color: var(--cream); border-radius: 100px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; transition: all 0.3s; }
+  .pp-add:hover { background: var(--wine-deep); }
+  .pp-add:disabled { opacity: 0.4; cursor: not-allowed; }
+  .pp-wa { display: inline-flex; align-items: center; gap: 8px; padding: 18px 26px; border: 1px solid var(--line); border-radius: 100px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; }
+  .pp-wa:hover { border-color: #25D366; color: #1ebe5d; }
+  .pp-wa svg { width: 18px; height: 18px; }
+  .pp-stock-out { color: var(--wine); font-size: 14px; margin-top: 16px; font-weight: 500; }
+  @media (max-width: 860px) { .pp-grid { grid-template-columns: 1fr; gap: 28px; } .pp-inner { padding: 84px 20px 60px; } }
+
   /* ============ FLOATING BUTTONS ============ */
   .floating { position: fixed; bottom: 24px; right: 24px; z-index: 90; display: flex; flex-direction: column; gap: 12px; }
   .float-btn { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: white; box-shadow: var(--shadow-md); transition: all 0.3s; position: relative; }
@@ -934,6 +968,9 @@
   </div>
 </div>
 
+<!-- PRODUCT PAGE -->
+<div class="product-page" id="productPage"></div>
+
 <!-- CART DRAWER -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
@@ -1130,9 +1167,9 @@
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const rows = parseCSV(await res.text()).map(rowToProduct).filter(Boolean);
       if (rows.length === 0) throw new Error('empty');
-      products = rows; renderProducts();
+      products = rows; renderProducts(); handleRoute();
     } catch (err) {
-      products = _fallback.map(normalizeProduct); renderProducts();
+      products = _fallback.map(normalizeProduct); renderProducts(); handleRoute();
     }
   }
 
@@ -1144,7 +1181,7 @@
               ${p.sizeStock.map(s => `<button class="size-chip" data-size="${s.size}" onclick="event.stopPropagation(); selectSize(${p.id}, this.dataset.size);">${s.size}</button>`).join('')}
             </div>` : '';
     return `
-      <article class="product${p.inStock === false ? ' out-of-stock' : ''}" data-id="${p.id}">
+      <article class="product${p.inStock === false ? ' out-of-stock' : ''}" data-id="${p.id}" style="cursor:pointer" onclick="openProduct(${p.id})">
         <div class="product-image">
           <img src="${p.img}" alt="${p.name}" class="img-main" loading="lazy">
           ${p.imgs && p.imgs[1] ? `<img src="${p.imgs[1]}" alt="" class="img-hover" loading="lazy">` : ''}
@@ -1166,7 +1203,7 @@
               </div>
             </div>
             <div class="product-controls${p.inStock === false ? ' out-of-stock' : ''}">
-              <button class="add-btn" onclick="addToCart(${p.id})" aria-label="В корзину"${p.inStock === false ? ' disabled' : ''}>
+              <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})" aria-label="В корзину"${p.inStock === false ? ' disabled' : ''}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               </button>
             </div>
@@ -1277,8 +1314,80 @@
 
   function openWA(id) {
     const p = products.find(p => p.id === id);
-    window.open('https://wa.me/77015336339?text=' + encodeURIComponent('Здравствуйте! Интересует изделие ZINNÁTI: ' + p.name + ' (' + p.price.toLocaleString('ru-RU') + ' ₸)'), '_blank');
+    const link = location.origin + location.pathname + '#product/' + id;
+    window.open('https://wa.me/77015336339?text=' + encodeURIComponent('Здравствуйте! Интересует изделие ZINNÁTI: ' + p.name + ' (' + p.price.toLocaleString('ru-RU') + ' ₸)\n' + link), '_blank');
   }
+
+  // ============ PRODUCT PAGE (deep-linkable: #product/<id>) ============
+  const WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>';
+  let _scrollBeforeProduct = 0;
+  function openProduct(id) { _scrollBeforeProduct = window.scrollY; location.hash = 'product/' + id; }
+  function closeProduct() {
+    if (location.hash.indexOf('product/') !== -1) history.pushState('', document.title, location.pathname + location.search);
+    handleRoute();
+  }
+  function ppSwap(thumb, src) {
+    document.getElementById('ppMainImg').src = src;
+    thumb.parentElement.querySelectorAll('.pp-thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+  }
+  function renderProductPage(p) {
+    const isSale = p.isSale || p.badge === 'SALE';
+    const imgs = (p.imgs && p.imgs.length) ? p.imgs : (p.img ? [p.img] : []);
+    const thumbs = imgs.length > 1 ? `<div class="pp-thumbs">${imgs.map((src, i) => `<div class="pp-thumb${i === 0 ? ' active' : ''}" onclick="ppSwap(this, '${src}')"><img src="${src}" alt="" loading="lazy"></div>`).join('')}</div>` : '';
+    const sizesHtml = (p.sizeStock && p.sizeStock.length) ? `
+        <div class="pp-size-label">Размер</div>
+        <div class="size-row" data-pid="${p.id}">${p.sizeStock.map(s => `<button class="size-chip" data-size="${s.size}" onclick="selectSize(${p.id}, this.dataset.size)">${s.size}</button>`).join('')}</div>` : '';
+    const badgeClass = isSale ? 'sale' : ((p.badgeNew || p.badge === 'NEW') ? 'new' : '');
+    document.getElementById('productPage').innerHTML = `
+      <div class="pp-inner">
+        <button class="pp-back" onclick="closeProduct()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Назад в каталог</button>
+        <div class="pp-grid">
+          <div class="pp-gallery">
+            <div class="pp-main"><img id="ppMainImg" src="${imgs[0] || ''}" alt="${p.name}"></div>
+            ${thumbs}
+          </div>
+          <div class="pp-info">
+            ${p.badge ? `<div class="pp-badge ${badgeClass}">${p.badge}</div>` : ''}
+            <h1 class="pp-name">${p.name}</h1>
+            <div class="pp-desc">${p.desc || ''}</div>
+            <div class="pp-price"><span class="now">${p.price.toLocaleString('ru-RU')} ₸</span>${p.oldPrice ? `<span class="old">${p.oldPrice.toLocaleString('ru-RU')} ₸</span>` : ''}</div>
+            ${sizesHtml}
+            ${p.inStock === false ? `<div class="pp-stock-out">Нет в наличии</div>` : ''}
+            <div class="pp-actions">
+              <button class="pp-add" onclick="addToCart(${p.id})"${p.inStock === false ? ' disabled' : ''}>В корзину</button>
+              <a class="pp-wa" href="#" onclick="openWA(${p.id}); return false;">${WA_ICON} Спросить в WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    applySizeDefaults();
+  }
+  function handleRoute() {
+    const m = location.hash.match(/^#product\/(\d+)/);
+    const page = document.getElementById('productPage');
+    const isOpen = page.classList.contains('open');
+    if (m) {
+      const p = products.find(x => x.id === parseInt(m[1]));
+      if (p) {
+        renderProductPage(p);
+        page.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        page.scrollTop = 0;
+        document.title = p.name + ' · ZINNÁTI';
+        return;
+      }
+    }
+    if (isOpen) {
+      page.classList.remove('open');
+      page.innerHTML = '';
+      document.body.style.overflow = '';
+      document.title = 'ZINNÁTI — Timeless Knitwear · Премиальный трикотаж';
+      if (!location.hash) window.scrollTo(0, _scrollBeforeProduct || 0);
+    }
+  }
+  window.addEventListener('hashchange', handleRoute);
+  window.openProduct = openProduct; window.closeProduct = closeProduct; window.ppSwap = ppSwap;
 
   // ============ CART ============
   function addToCart(id) {
