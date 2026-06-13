@@ -504,7 +504,7 @@
   .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 4px; font-family: var(--sans); font-size: 14px; background: var(--ivory); color: var(--charcoal); transition: border-color 0.2s; }
   .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--wine); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .payment-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .payment-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .pay-option { padding: 12px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--ivory); text-align: center; cursor: pointer; font-size: 12px; transition: all 0.2s; }
   .pay-option.selected { border-color: var(--charcoal); background: var(--charcoal); color: var(--cream); }
   .promo-row { display: flex; gap: 8px; margin-top: 8px; }
@@ -996,6 +996,7 @@
     <div class="form-group"><label id="payLabel">Способ оплаты</label>
       <div class="payment-options" role="radiogroup" aria-labelledby="payLabel">
         <div class="pay-option selected" data-pay="Kaspi" role="radio" tabindex="0" aria-checked="true">Kaspi</div>
+        <div class="pay-option" data-pay="Halyk" role="radio" tabindex="0" aria-checked="false">Halyk</div>
         <div class="pay-option" data-pay="Карта" role="radio" tabindex="0" aria-checked="false">Карта</div>
         <div class="pay-option" data-pay="Перевод" role="radio" tabindex="0" aria-checked="false">Перевод</div>
       </div>
