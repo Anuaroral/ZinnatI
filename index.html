@@ -457,6 +457,10 @@
   .pp-wa { display: inline-flex; align-items: center; gap: 8px; padding: 18px 26px; border: 1px solid var(--line); border-radius: 100px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; }
   .pp-wa:hover { border-color: #25D366; color: #1ebe5d; }
   .pp-wa svg { width: 18px; height: 18px; }
+  .pp-details { margin-top: 28px; border-top: 1px solid var(--line); }
+  .pp-detail { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .pp-detail span:first-child { color: var(--ash); letter-spacing: 0.04em; }
+  .pp-detail span:last-child { color: var(--charcoal); text-align: right; }
   .pp-stock-out { color: var(--wine); font-size: 14px; margin-top: 16px; font-weight: 500; }
   @media (max-width: 860px) { .pp-grid { grid-template-columns: 1fr; gap: 28px; } .pp-inner { padding: 84px 20px 60px; } }
 
@@ -1340,6 +1344,14 @@
         <div class="pp-size-label">Размер</div>
         <div class="size-row" data-pid="${p.id}">${p.sizeStock.map(s => `<button class="size-chip" data-size="${s.size}" onclick="selectSize(${p.id}, this.dataset.size)">${s.size}</button>`).join('')}</div>` : '';
     const badgeClass = isSale ? 'sale' : ((p.badgeNew || p.badge === 'NEW') ? 'new' : '');
+    const isAcc = p.cat === 'accessories';
+    const composition = isAcc ? '' : (p.collection === 'spring' ? 'Акрил 70%, Шерсть 30%' : 'Хлопок 100%');
+    const hasSmallTall = p.sizeStock && p.sizeStock.some(s => /small|tall/i.test(s.size));
+    const detailRows = [
+      composition ? `<div class="pp-detail"><span>Состав</span><span>${composition}</span></div>` : '',
+      hasSmallTall ? `<div class="pp-detail"><span>Размеры</span><span>Small (S–M) · Tall (L–XXL)</span></div>` : ''
+    ].join('');
+    const detailsHtml = detailRows ? `<div class="pp-details">${detailRows}</div>` : '';
     document.getElementById('productPage').innerHTML = `
       <div class="pp-inner">
         <button class="pp-back" onclick="closeProduct()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Назад в каталог</button>
@@ -1354,6 +1366,7 @@
             <div class="pp-desc">${p.desc || ''}</div>
             <div class="pp-price"><span class="now">${p.price.toLocaleString('ru-RU')} ₸</span>${p.oldPrice ? `<span class="old">${p.oldPrice.toLocaleString('ru-RU')} ₸</span>` : ''}</div>
             ${sizesHtml}
+            ${detailsHtml}
             ${p.inStock === false ? `<div class="pp-stock-out">Нет в наличии</div>` : ''}
             <div class="pp-actions">
               <button class="pp-add" onclick="addToCart(${p.id})"${p.inStock === false ? ' disabled' : ''}>В корзину</button>
