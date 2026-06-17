@@ -1,26 +1,26 @@
-id,name,cat,collection,price,sale,salePercent,oldPrice,sizes,qty,capsule,badge,img1,img2,img3,desc
-1,Жилетка «Facet»,tops,summer,38500,FALSE,,,"Small,Tall",6,"отдых,повседневный",ХИТ,images/facet.jpg,images/facet-2.jpg,,жёлтый / белый
-2,Рубашка «Mingle»,tops,summer,56500,FALSE,,,"Small,Tall",5,"офис,повседневный",,images/mingle.jpg,images/mingle-2.jpg,,жёлтый / белый
-3,Шорты «Spark»,bottoms,summer,29500,FALSE,,,"Small,Tall",8,"отдых",,images/spark.jpg,images/spark-2.jpg,,жёлтый / белый
-4,Юбка макси «Merge»,bottoms,summer,43500,FALSE,,,"Small,Tall",4,"офис,вечер",,images/merge.jpg,images/merge-2.jpg,,графит / бежевый
-5,Юбка мини «Elan»,bottoms,summer,29500,FALSE,,,"Small,Tall",7,"повседневный,отдых",,images/elan.jpg,images/elan-2.jpg,,графит / бежевый
-6,Поло «Bloom»,tops,summer,34500,FALSE,,,"Small,Tall",9,"офис,повседневный",ХИТ,images/bloom.jpg,images/bloom-2.jpg,,бежевый / розовый / коралл
-7,Платье «Grace»,dresses,summer,48000,FALSE,,,"Small,Tall",5,"вечер",NEW,images/grace.jpg,images/grace-2.jpg,,розовый
-8,Сарафан «Haven»,dresses,summer,43500,FALSE,,,"Small,Tall",4,"вечер,отдых",,images/haven.jpg,images/haven-2.jpg,,бежевый / розовый
-9,Кардиган «Embrace»,cardigans,summer,64500,FALSE,,,"Small,Tall",3,"офис,вечер",,images/embrace.jpg,images/embrace-2.jpg,,бежевый
-10,Кардиган «Loom»,cardigans,summer,64500,FALSE,,,"Small,Tall",3,"вечер,повседневный",NEW,images/loom.jpg,images/loom-2.jpg,,розово-бежевый узор
-11,Комплект «Facet + Spark»,sets,summer,61500,FALSE,,68000,"Small,Tall",4,"отдых",КОМПЛЕКТ,images/set-vest-shorts.jpg,,,жилет + шорты
-12,Комплект «Mingle + Spark»,sets,summer,77500,FALSE,,86000,"Small,Tall",4,"отдых,повседневный",КОМПЛЕКТ,images/set-shirt-shorts.jpg,,,рубашка + шорты
-13,Комплект «Merge + Bloom»,sets,summer,70500,FALSE,,78000,"Small,Tall",3,"офис",КОМПЛЕКТ,images/set-maxi-polo.jpg,,,юбка макси + поло
-14,Комплект «Elan + Bloom»,sets,summer,57500,FALSE,,64000,"Small,Tall",3,"повседневный",КОМПЛЕКТ,images/set-mini-polo.jpg,,,юбка мини + поло
-15,Комплект «Embrace + Haven»,sets,summer,97500,FALSE,,108000,"Small,Tall",2,"вечер",КОМПЛЕКТ,images/set-cardigan-sundress.jpg,,,кардиган + сарафан
-16,Кардиган макси «Pure»,cardigans,spring,145000,TRUE,25,,"Small,Tall",2,"вечер",,images/pure.jpg,images/pure-2.jpg,,шоколад / марсала
-17,Платье «Muse»,dresses,spring,115000,TRUE,15,,"Small,Tall",2,"вечер",,images/muse.jpg,images/muse-2.jpg,,марсала
-18,Кардиган «Sierra»,cardigans,spring,95000,TRUE,25,,"Small,Tall",3,"повседневный,офис",,images/sierra.jpg,images/sierra-2.jpg,,марсала / пыльно-розовый / терракот
-19,Кардиган «Celeste»,cardigans,spring,115000,TRUE,25,,"Small,Tall",2,"офис,вечер",,images/celeste.jpg,images/celeste-2.jpg,,айвори / авокадо
-20,Кардиган «Code»,cardigans,spring,115000,TRUE,25,,"Small,Tall",2,"повседневный,офис",,images/code.jpg,images/code-2.jpg,,шоколад / марсала
-21,Юбка «Harmony»,bottoms,spring,95000,TRUE,15,,"Small,Tall",3,"офис",,images/harmony.jpg,images/harmony-2.jpg,,айвори / авокадо
-22,Джемпер «Serene»,tops,spring,65000,TRUE,15,,"Small,Tall",4,"повседневный,офис",,images/serene.jpg,images/serene-2.jpg,,айвори / авокадо
-23,Поло «Vega»,tops,spring,59000,TRUE,15,,"Small,Tall",4,"офис",,images/vega.jpg,images/vega-2.jpg,,шоколад / айвори / марсала / авокадо
-24,Пояс «Code» (толстый),accessories,spring,15000,FALSE,,,Стандарт,10,,В ПОДАРОК,images/belt-thick.jpg,,,ручное ткачество · в подарок к кардигану
-25,Пояс «Code» (тонкий),accessories,spring,12000,FALSE,,,Стандарт,10,,В ПОДАРОК,images/belt-thin.jpg,,,ручное ткачество · в подарок к кардигану
+id,name,cat,collection,price,sale,salePercent,oldPrice,sizes,qty,capsule,colors,badge,img1,img2,img3,desc
+1,Жилетка «Facet»,tops,summer,38500,FALSE,,,"Small,Tall",6,"отдых,повседневный","жёлтый, белый",ХИТ,images/facet.jpg,images/facet-2.jpg,,жёлтый / белый
+2,Рубашка «Mingle»,tops,summer,56500,FALSE,,,"Small,Tall",5,"офис,повседневный","жёлтый, белый",,images/mingle.jpg,images/mingle-2.jpg,,жёлтый / белый
+3,Шорты «Spark»,bottoms,summer,29500,FALSE,,,"Small,Tall",8,"отдых","жёлтый, белый",,images/spark.jpg,images/spark-2.jpg,,жёлтый / белый
+4,Юбка макси «Merge»,bottoms,summer,43500,FALSE,,,"Small,Tall",4,"офис,вечер","графит, бежевый",,images/merge.jpg,images/merge-2.jpg,,графит / бежевый
+5,Юбка мини «Elan»,bottoms,summer,29500,FALSE,,,"Small,Tall",7,"повседневный,отдых","графит, бежевый",,images/elan.jpg,images/elan-2.jpg,,графит / бежевый
+6,Поло «Bloom»,tops,summer,34500,FALSE,,,"Small,Tall",9,"офис,повседневный","бежевый, розовый, коралл",ХИТ,images/bloom.jpg,images/bloom-2.jpg,,бежевый / розовый / коралл
+7,Платье «Grace»,dresses,summer,48000,FALSE,,,"Small,Tall",5,"вечер","розовый",NEW,images/grace.jpg,images/grace-2.jpg,,розовый
+8,Сарафан «Haven»,dresses,summer,43500,FALSE,,,"Small,Tall",4,"вечер,отдых","бежевый, розовый",,images/haven.jpg,images/haven-2.jpg,,бежевый / розовый
+9,Кардиган «Embrace»,cardigans,summer,64500,FALSE,,,"Small,Tall",3,"офис,вечер","бежевый",,images/embrace.jpg,images/embrace-2.jpg,,бежевый
+10,Кардиган «Loom»,cardigans,summer,64500,FALSE,,,"Small,Tall",3,"вечер,повседневный","розово-бежевый узор",NEW,images/loom.jpg,images/loom-2.jpg,,розово-бежевый узор
+11,Комплект «Facet + Spark»,sets,summer,61500,FALSE,,68000,"Small,Tall",4,"отдых",,КОМПЛЕКТ,images/set-vest-shorts.jpg,,,жилет + шорты
+12,Комплект «Mingle + Spark»,sets,summer,77500,FALSE,,86000,"Small,Tall",4,"отдых,повседневный",,КОМПЛЕКТ,images/set-shirt-shorts.jpg,,,рубашка + шорты
+13,Комплект «Merge + Bloom»,sets,summer,70500,FALSE,,78000,"Small,Tall",3,"офис",,КОМПЛЕКТ,images/set-maxi-polo.jpg,,,юбка макси + поло
+14,Комплект «Elan + Bloom»,sets,summer,57500,FALSE,,64000,"Small,Tall",3,"повседневный",,КОМПЛЕКТ,images/set-mini-polo.jpg,,,юбка мини + поло
+15,Комплект «Embrace + Haven»,sets,summer,97500,FALSE,,108000,"Small,Tall",2,"вечер",,КОМПЛЕКТ,images/set-cardigan-sundress.jpg,,,кардиган + сарафан
+16,Кардиган макси «Pure»,cardigans,spring,145000,TRUE,25,,"Small,Tall",2,"вечер","шоколад, марсала",,images/pure.jpg,images/pure-2.jpg,,шоколад / марсала
+17,Платье «Muse»,dresses,spring,115000,TRUE,15,,"Small,Tall",2,"вечер","марсала",,images/muse.jpg,images/muse-2.jpg,,марсала
+18,Кардиган «Sierra»,cardigans,spring,95000,TRUE,25,,"Small,Tall",3,"повседневный,офис","марсала, пыльно-розовый, терракот",,images/sierra.jpg,images/sierra-2.jpg,,марсала / пыльно-розовый / терракот
+19,Кардиган «Celeste»,cardigans,spring,115000,TRUE,25,,"Small,Tall",2,"офис,вечер","айвори, авокадо",,images/celeste.jpg,images/celeste-2.jpg,,айвори / авокадо
+20,Кардиган «Code»,cardigans,spring,115000,TRUE,25,,"Small,Tall",2,"повседневный,офис","шоколад, марсала",,images/code.jpg,images/code-2.jpg,,шоколад / марсала
+21,Юбка «Harmony»,bottoms,spring,95000,TRUE,15,,"Small,Tall",3,"офис","айвори, авокадо",,images/harmony.jpg,images/harmony-2.jpg,,айвори / авокадо
+22,Джемпер «Serene»,tops,spring,65000,TRUE,15,,"Small,Tall",4,"повседневный,офис","айвори, авокадо",,images/serene.jpg,images/serene-2.jpg,,айвори / авокадо
+23,Поло «Vega»,tops,spring,59000,TRUE,15,,"Small,Tall",4,"офис","шоколад/айвори, марсала/авокадо, айвори/шоколад",,images/vega.jpg,images/vega-2.jpg,,шоколад / айвори / марсала / авокадо
+24,Пояс «Code» (толстый),accessories,spring,15000,FALSE,,,Стандарт,10,,,В ПОДАРОК,images/belt-thick.jpg,,,ручное ткачество · в подарок к кардигану
+25,Пояс «Code» (тонкий),accessories,spring,12000,FALSE,,,Стандарт,10,,,В ПОДАРОК,images/belt-thin.jpg,,,ручное ткачество · в подарок к кардигану

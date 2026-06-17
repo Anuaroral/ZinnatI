@@ -254,6 +254,15 @@
   .size-chip:hover:not(.sold) { border-color: var(--charcoal); color: var(--charcoal); }
   .size-chip.active { background: var(--charcoal); color: var(--cream); border-color: var(--charcoal); }
   .size-chip.sold { opacity: 0.4; text-decoration: line-through; cursor: not-allowed; }
+  .color-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .color-chip {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 8px;
+    border: 1px solid var(--line); border-radius: 100px; font-family: var(--sans); font-size: 13px;
+    color: var(--charcoal); background: var(--ivory); cursor: pointer; transition: all 0.18s; text-transform: capitalize;
+  }
+  .color-chip:hover { border-color: var(--charcoal); }
+  .color-chip.active { border-color: var(--wine); box-shadow: inset 0 0 0 1px var(--wine); }
+  .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.12); flex-shrink: 0; }
   .cart-item-size { font-size: 11px; letter-spacing: 0.04em; color: var(--ash); margin: 1px 0 5px; }
 
   /* ---- collection blocks ---- */
@@ -1016,7 +1025,7 @@
   // GOOGLE SHEETS INTEGRATION (optional)
   // File → Share → Publish to web → (choose the sheet) → CSV → paste link below
   // Columns (header row, exact names):
-  //   id | name | cat | collection | price | sale | salePercent | oldPrice | sizes | qty | capsule | badge | img1 | img2 | img3 | desc
+  //   id | name | cat | collection | price | sale | salePercent | oldPrice | sizes | qty | capsule | colors | badge | img1 | img2 | img3 | desc
   //   • cat:        tops | bottoms | dresses | cardigans | sets | accessories
   //   • collection: summer (блок «Лето») | spring (блок «Sale»). Если пусто — берётся из sale.
   //   • oldPrice: старая цена для зачёркивания (если задаёте цену со скидкой вручную, напр. комплекты)
@@ -1026,6 +1035,7 @@
   //   • sizes:  список размеров через запятую, напр.  XS,S,M,L
   //   • qty:    общее количество на складе (число). Если 0 → товар «Нет в наличии». Пусто → в наличии.
   //   • capsule: для какой капсулы подходит — вечер / офис / повседневный / отдых (можно несколько через запятую)
+  //   • colors:  доступные цвета через запятую, напр.  бежевый, розовый, коралл  (двухцветные: шоколад/айвори)
   //   • badge:  ХИТ / NEW / … (для sale-товара ставится −%% автоматически)
   //   • img1..img3: ссылки на 1–3 фото (или локальные пути вида images/p1-a.jpg)
   //   • desc:   короткое описание (необязательно)
@@ -1053,33 +1063,33 @@
   // ============ FALLBACK / HARDCODED DATA ============
   const _fallback = [
     // ===== ЛЕТО · коллекция CONNECTIONS «связи» (реальные товары) =====
-    {id: 1,  name: "Жилетка «Facet»",        cat: "tops",      collection: "summer", desc: "жёлтый / белый",            price: 38500, badge: "ХИТ", sizesRaw: "Small,Tall", capsule: "отдых,повседневный", imgs: ["images/facet.jpg","images/facet-2.jpg"]},
-    {id: 2,  name: "Рубашка «Mingle»",       cat: "tops",      collection: "summer", desc: "жёлтый / белый",            price: 56500,               sizesRaw: "Small,Tall", capsule: "офис,повседневный", imgs: ["images/mingle.jpg","images/mingle-2.jpg"]},
-    {id: 3,  name: "Шорты «Spark»",          cat: "bottoms",   collection: "summer", desc: "жёлтый / белый",            price: 29500,               sizesRaw: "Small,Tall", capsule: "отдых", imgs: ["images/spark.jpg","images/spark-2.jpg"]},
-    {id: 4,  name: "Юбка макси «Merge»",     cat: "bottoms",   collection: "summer", desc: "графит / бежевый",          price: 43500,               sizesRaw: "Small,Tall", capsule: "офис,вечер", imgs: ["images/merge.jpg","images/merge-2.jpg"]},
-    {id: 5,  name: "Юбка мини «Elan»",       cat: "bottoms",   collection: "summer", desc: "графит / бежевый",          price: 29500,               sizesRaw: "Small,Tall", capsule: "повседневный,отдых", imgs: ["images/elan.jpg","images/elan-2.jpg"]},
-    {id: 6,  name: "Поло «Bloom»",           cat: "tops",      collection: "summer", desc: "бежевый / розовый / коралл", price: 34500, badge: "ХИТ", sizesRaw: "Small,Tall", capsule: "офис,повседневный", imgs: ["images/bloom.jpg","images/bloom-2.jpg"]},
-    {id: 7,  name: "Платье «Grace»",         cat: "dresses",   collection: "summer", desc: "розовый",                   price: 48000, badge: "NEW", sizesRaw: "Small,Tall", capsule: "вечер", imgs: ["images/grace.jpg","images/grace-2.jpg"]},
-    {id: 8,  name: "Сарафан «Haven»",        cat: "dresses",   collection: "summer", desc: "бежевый / розовый",         price: 43500,               sizesRaw: "Small,Tall", capsule: "вечер,отдых", imgs: ["images/haven.jpg","images/haven-2.jpg"]},
-    {id: 9,  name: "Кардиган «Embrace»",     cat: "cardigans", collection: "summer", desc: "бежевый",                   price: 64500,               sizesRaw: "Small,Tall", capsule: "офис,вечер", imgs: ["images/embrace.jpg","images/embrace-2.jpg"]},
-    {id: 10, name: "Кардиган «Loom»",        cat: "cardigans", collection: "summer", desc: "розово-бежевый узор",        price: 64500, badge: "NEW", sizesRaw: "Small,Tall", capsule: "вечер,повседневный", imgs: ["images/loom.jpg","images/loom-2.jpg"]},
+    {id: 1,  name: "Жилетка «Facet»",        cat: "tops",      collection: "summer", desc: "жёлтый / белый",            price: 38500, badge: "ХИТ", sizesRaw: "Small,Tall", capsule: "отдых,повседневный", colors: "жёлтый, белый", imgs: ["images/facet.jpg","images/facet-2.jpg"]},
+    {id: 2,  name: "Рубашка «Mingle»",       cat: "tops",      collection: "summer", desc: "жёлтый / белый",            price: 56500,               sizesRaw: "Small,Tall", capsule: "офис,повседневный", colors: "жёлтый, белый", imgs: ["images/mingle.jpg","images/mingle-2.jpg"]},
+    {id: 3,  name: "Шорты «Spark»",          cat: "bottoms",   collection: "summer", desc: "жёлтый / белый",            price: 29500,               sizesRaw: "Small,Tall", capsule: "отдых", colors: "жёлтый, белый", imgs: ["images/spark.jpg","images/spark-2.jpg"]},
+    {id: 4,  name: "Юбка макси «Merge»",     cat: "bottoms",   collection: "summer", desc: "графит / бежевый",          price: 43500,               sizesRaw: "Small,Tall", capsule: "офис,вечер", colors: "графит, бежевый", imgs: ["images/merge.jpg","images/merge-2.jpg"]},
+    {id: 5,  name: "Юбка мини «Elan»",       cat: "bottoms",   collection: "summer", desc: "графит / бежевый",          price: 29500,               sizesRaw: "Small,Tall", capsule: "повседневный,отдых", colors: "графит, бежевый", imgs: ["images/elan.jpg","images/elan-2.jpg"]},
+    {id: 6,  name: "Поло «Bloom»",           cat: "tops",      collection: "summer", desc: "бежевый / розовый / коралл", price: 34500, badge: "ХИТ", sizesRaw: "Small,Tall", capsule: "офис,повседневный", colors: "бежевый, розовый, коралл", imgs: ["images/bloom.jpg","images/bloom-2.jpg"]},
+    {id: 7,  name: "Платье «Grace»",         cat: "dresses",   collection: "summer", desc: "розовый",                   price: 48000, badge: "NEW", sizesRaw: "Small,Tall", capsule: "вечер", colors: "розовый", imgs: ["images/grace.jpg","images/grace-2.jpg"]},
+    {id: 8,  name: "Сарафан «Haven»",        cat: "dresses",   collection: "summer", desc: "бежевый / розовый",         price: 43500,               sizesRaw: "Small,Tall", capsule: "вечер,отдых", colors: "бежевый, розовый", imgs: ["images/haven.jpg","images/haven-2.jpg"]},
+    {id: 9,  name: "Кардиган «Embrace»",     cat: "cardigans", collection: "summer", desc: "бежевый",                   price: 64500,               sizesRaw: "Small,Tall", capsule: "офис,вечер", colors: "бежевый", imgs: ["images/embrace.jpg","images/embrace-2.jpg"]},
+    {id: 10, name: "Кардиган «Loom»",        cat: "cardigans", collection: "summer", desc: "розово-бежевый узор",        price: 64500, badge: "NEW", sizesRaw: "Small,Tall", capsule: "вечер,повседневный", colors: "розово-бежевый узор", imgs: ["images/loom.jpg","images/loom-2.jpg"]},
     // ===== ЛЕТО · комплекты (цена со скидкой) =====
-    {id: 11, name: "Комплект «Facet + Spark»",   cat: "sets", collection: "summer", desc: "жилет + шорты",        price: 61500, oldPrice: 68000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "отдых", imgs: ["images/set-vest-shorts.jpg"]},
-    {id: 12, name: "Комплект «Mingle + Spark»",  cat: "sets", collection: "summer", desc: "рубашка + шорты",      price: 77500, oldPrice: 86000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "отдых,повседневный", imgs: ["images/set-shirt-shorts.jpg"]},
-    {id: 13, name: "Комплект «Merge + Bloom»",   cat: "sets", collection: "summer", desc: "юбка макси + поло",    price: 70500, oldPrice: 78000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "офис", imgs: ["images/set-maxi-polo.jpg"]},
-    {id: 14, name: "Комплект «Elan + Bloom»",    cat: "sets", collection: "summer", desc: "юбка мини + поло",     price: 57500, oldPrice: 64000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "повседневный", imgs: ["images/set-mini-polo.jpg"]},
-    {id: 15, name: "Комплект «Embrace + Haven»", cat: "sets", collection: "summer", desc: "кардиган + сарафан",   price: 97500, oldPrice: 108000, badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "вечер", imgs: ["images/set-cardigan-sundress.jpg"]},
+    {id: 11, name: "Комплект «Facet + Spark»",   cat: "sets", collection: "summer", desc: "жилет + шорты",        price: 61500, oldPrice: 68000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "отдых", colors: "", imgs: ["images/set-vest-shorts.jpg"]},
+    {id: 12, name: "Комплект «Mingle + Spark»",  cat: "sets", collection: "summer", desc: "рубашка + шорты",      price: 77500, oldPrice: 86000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "отдых,повседневный", colors: "", imgs: ["images/set-shirt-shorts.jpg"]},
+    {id: 13, name: "Комплект «Merge + Bloom»",   cat: "sets", collection: "summer", desc: "юбка макси + поло",    price: 70500, oldPrice: 78000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "офис", colors: "", imgs: ["images/set-maxi-polo.jpg"]},
+    {id: 14, name: "Комплект «Elan + Bloom»",    cat: "sets", collection: "summer", desc: "юбка мини + поло",     price: 57500, oldPrice: 64000,  badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "повседневный", colors: "", imgs: ["images/set-mini-polo.jpg"]},
+    {id: 15, name: "Комплект «Embrace + Haven»", cat: "sets", collection: "summer", desc: "кардиган + сарафан",   price: 97500, oldPrice: 108000, badge: "КОМПЛЕКТ", sizesRaw: "Small,Tall", capsule: "вечер", colors: "", imgs: ["images/set-cardigan-sundress.jpg"]},
     // ===== SALE · осенняя коллекция (цены из каталога, скидка %) =====
-    {id: 16, name: "Кардиган макси «Pure»",       cat: "cardigans", collection: "spring", salePercent: 25, price: 145000, desc: "шоколад / марсала",            sizesRaw: "Small,Tall", capsule: "вечер", imgs: ["images/pure.jpg","images/pure-2.jpg"]},
-    {id: 17, name: "Платье «Muse»",               cat: "dresses",   collection: "spring", salePercent: 15, price: 115000, desc: "марсала",                       sizesRaw: "Small,Tall", capsule: "вечер", imgs: ["images/muse.jpg","images/muse-2.jpg"]},
-    {id: 18, name: "Кардиган «Sierra»",           cat: "cardigans", collection: "spring", salePercent: 25, price: 95000,  desc: "марсала / пыльно-розовый / терракот", sizesRaw: "Small,Tall", capsule: "повседневный,офис", imgs: ["images/sierra.jpg","images/sierra-2.jpg"]},
-    {id: 19, name: "Кардиган «Celeste»",          cat: "cardigans", collection: "spring", salePercent: 25, price: 115000, desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "офис,вечер", imgs: ["images/celeste.jpg","images/celeste-2.jpg"]},
-    {id: 20, name: "Кардиган «Code»",             cat: "cardigans", collection: "spring", salePercent: 25, price: 115000, desc: "шоколад / марсала",             sizesRaw: "Small,Tall", capsule: "повседневный,офис", imgs: ["images/code.jpg","images/code-2.jpg"]},
-    {id: 21, name: "Юбка «Harmony»",              cat: "bottoms",   collection: "spring", salePercent: 15, price: 95000,  desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "офис", imgs: ["images/harmony.jpg","images/harmony-2.jpg"]},
-    {id: 22, name: "Джемпер «Serene»",            cat: "tops",      collection: "spring", salePercent: 15, price: 65000,  desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "повседневный,офис", imgs: ["images/serene.jpg","images/serene-2.jpg"]},
-    {id: 23, name: "Поло «Vega»",                 cat: "tops",      collection: "spring", salePercent: 15, price: 59000,  desc: "шоколад / айвори / марсала / авокадо", sizesRaw: "Small,Tall", capsule: "офис", imgs: ["images/vega.jpg","images/vega-2.jpg"]},
-    {id: 24, name: "Пояс «Code» (толстый)",       cat: "accessories", collection: "spring", sale: false, price: 15000, badge: "В ПОДАРОК", desc: "ручное ткачество · в подарок к кардигану", sizesRaw: "Стандарт", capsule: "", imgs: ["images/belt-thick.jpg"]},
-    {id: 25, name: "Пояс «Code» (тонкий)",        cat: "accessories", collection: "spring", sale: false, price: 12000, badge: "В ПОДАРОК", desc: "ручное ткачество · в подарок к кардигану", sizesRaw: "Стандарт", capsule: "", imgs: ["images/belt-thin.jpg"]},
+    {id: 16, name: "Кардиган макси «Pure»",       cat: "cardigans", collection: "spring", salePercent: 25, price: 145000, desc: "шоколад / марсала",            sizesRaw: "Small,Tall", capsule: "вечер", colors: "шоколад, марсала", imgs: ["images/pure.jpg","images/pure-2.jpg"]},
+    {id: 17, name: "Платье «Muse»",               cat: "dresses",   collection: "spring", salePercent: 15, price: 115000, desc: "марсала",                       sizesRaw: "Small,Tall", capsule: "вечер", colors: "марсала", imgs: ["images/muse.jpg","images/muse-2.jpg"]},
+    {id: 18, name: "Кардиган «Sierra»",           cat: "cardigans", collection: "spring", salePercent: 25, price: 95000,  desc: "марсала / пыльно-розовый / терракот", sizesRaw: "Small,Tall", capsule: "повседневный,офис", colors: "марсала, пыльно-розовый, терракот", imgs: ["images/sierra.jpg","images/sierra-2.jpg"]},
+    {id: 19, name: "Кардиган «Celeste»",          cat: "cardigans", collection: "spring", salePercent: 25, price: 115000, desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "офис,вечер", colors: "айвори, авокадо", imgs: ["images/celeste.jpg","images/celeste-2.jpg"]},
+    {id: 20, name: "Кардиган «Code»",             cat: "cardigans", collection: "spring", salePercent: 25, price: 115000, desc: "шоколад / марсала",             sizesRaw: "Small,Tall", capsule: "повседневный,офис", colors: "шоколад, марсала", imgs: ["images/code.jpg","images/code-2.jpg"]},
+    {id: 21, name: "Юбка «Harmony»",              cat: "bottoms",   collection: "spring", salePercent: 15, price: 95000,  desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "офис", colors: "айвори, авокадо", imgs: ["images/harmony.jpg","images/harmony-2.jpg"]},
+    {id: 22, name: "Джемпер «Serene»",            cat: "tops",      collection: "spring", salePercent: 15, price: 65000,  desc: "айвори / авокадо",              sizesRaw: "Small,Tall", capsule: "повседневный,офис", colors: "айвори, авокадо", imgs: ["images/serene.jpg","images/serene-2.jpg"]},
+    {id: 23, name: "Поло «Vega»",                 cat: "tops",      collection: "spring", salePercent: 15, price: 59000,  desc: "шоколад / айвори / марсала / авокадо", sizesRaw: "Small,Tall", capsule: "офис", colors: "шоколад/айвори, марсала/авокадо, айвори/шоколад", imgs: ["images/vega.jpg","images/vega-2.jpg"]},
+    {id: 24, name: "Пояс «Code» (толстый)",       cat: "accessories", collection: "spring", sale: false, price: 15000, badge: "В ПОДАРОК", desc: "ручное ткачество · в подарок к кардигану", sizesRaw: "Стандарт", capsule: "", colors: "", imgs: ["images/belt-thick.jpg"]},
+    {id: 25, name: "Пояс «Code» (тонкий)",        cat: "accessories", collection: "spring", sale: false, price: 12000, badge: "В ПОДАРОК", desc: "ручное ткачество · в подарок к кардигану", sizesRaw: "Стандарт", capsule: "", colors: "", imgs: ["images/belt-thin.jpg"]},
   ];
 
   let currentCat = 'all';
@@ -1087,6 +1097,18 @@
   let cart = [];
   const selectedQty = {};
   const selectedSize = {};
+  const selectedColor = {};
+  // Russian colour name → swatch hex (for two-tone names, the first token is used)
+  const COLOR_HEX = {
+    'жёлтый': '#E9D873', 'желтый': '#E9D873', 'белый': '#F3EFE7', 'графит': '#3b3a3c',
+    'бежевый': '#D6C3A6', 'розовый': '#E3B3C0', 'коралл': '#E0876B', 'шоколад': '#4a2f22',
+    'марсала': '#7D2C3F', 'айвори': '#F0E9D8', 'авокадо': '#737a4d', 'пыльно-розовый': '#C7A3AB',
+    'терракот': '#C0623F', 'розово-бежевый узор': '#D9C3C0'
+  };
+  function colorHex(name) {
+    const key = String(name || '').trim().toLowerCase().split('/')[0].trim();
+    return COLOR_HEX[key] || '#cfc4b8';
+  }
 
   // ============ GOOGLE SHEETS LOADER ============
   function parseCSVLine(line) {
@@ -1136,6 +1158,7 @@
       price, oldPrice, isSale: sale, salePercent: pct,
       badge, badgeNew, imgs, img: imgs[0] || '',
       capsules: String(p.capsule || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean),
+      colors: String(p.colors || '').split(',').map(s => s.trim()).filter(Boolean),
       sizeStock, inStock, qty, unit: p.unit || 'изделие', defaultQty: parseInt(p.defaultQty) || 1
     };
   }
@@ -1148,7 +1171,7 @@
       collection: (row.collection || '').toLowerCase() || undefined,
       price: row.price, sale: truthy(row.sale), salePercent: row.salePercent,
       oldPrice: row.oldPrice || null,
-      sizesRaw: row.sizes || '', qty: row.qty, capsule: row.capsule || '',
+      sizesRaw: row.sizes || '', qty: row.qty, capsule: row.capsule || '', colors: row.colors || '',
       badge: row.badge || null,
       imgs: [row.img1, row.img2, row.img3].map(s => (s || '').trim()).filter(Boolean),
       desc: row.desc || ''
@@ -1246,6 +1269,22 @@
     document.querySelectorAll(`.size-row[data-pid="${id}"] .size-chip`).forEach(b =>
       b.classList.toggle('active', b.dataset.size === size));
   }
+  function applyColorDefaults() {
+    document.querySelectorAll('.color-row').forEach(row => {
+      const id = parseInt(row.dataset.pid);
+      if (!selectedColor[id]) {
+        const first = row.querySelector('.color-chip');
+        if (first) selectedColor[id] = first.dataset.color;
+      }
+      row.querySelectorAll('.color-chip').forEach(b => b.classList.toggle('active', b.dataset.color === selectedColor[id]));
+    });
+  }
+  function selectColor(id, color) {
+    selectedColor[id] = color;
+    document.querySelectorAll(`.color-row[data-pid="${id}"] .color-chip`).forEach(b =>
+      b.classList.toggle('active', b.dataset.color === color));
+  }
+  window.selectColor = selectColor;
 
   // ============ TABS ============
   document.querySelectorAll('.tab').forEach(tab => {
@@ -1344,6 +1383,9 @@
       hasSmallTall ? `<div class="pp-detail"><span>Размеры</span><span>Small (S–M) · Tall (L–XXL)</span></div>` : ''
     ].join('');
     const detailsHtml = detailRows ? `<div class="pp-details">${detailRows}</div>` : '';
+    const colorsHtml = (p.colors && p.colors.length > 1) ? `
+        <div class="pp-size-label">Цвет</div>
+        <div class="color-row" data-pid="${p.id}">${p.colors.map(c => `<button class="color-chip" data-color="${c}" onclick="selectColor(${p.id}, this.dataset.color)"><span class="color-dot" style="background:${colorHex(c)}"></span>${c}</button>`).join('')}</div>` : '';
     document.getElementById('productPage').innerHTML = `
       <div class="pp-inner">
         <button class="pp-back" onclick="closeProduct()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Назад в каталог</button>
@@ -1357,6 +1399,7 @@
             <h1 class="pp-name">${p.name}</h1>
             <div class="pp-desc">${p.desc || ''}</div>
             <div class="pp-price"><span class="now">${p.price.toLocaleString('ru-RU')} ₸</span>${p.oldPrice ? `<span class="old">${p.oldPrice.toLocaleString('ru-RU')} ₸</span>` : ''}</div>
+            ${colorsHtml}
             ${sizesHtml}
             ${detailsHtml}
             ${p.inStock === false ? `<div class="pp-stock-out">Нет в наличии</div>` : ''}
@@ -1368,6 +1411,7 @@
         </div>
       </div>`;
     applySizeDefaults();
+    applyColorDefaults();
   }
   function handleRoute() {
     const m = location.hash.match(/^#product\/(\d+)/);
@@ -1402,10 +1446,11 @@
     const size = selectedSize[id]
       || (product.sizeStock && product.sizeStock[0] && product.sizeStock[0].size)
       || null;
-    const lineId = id + (size ? '__' + size : '');
+    const color = selectedColor[id] || (product.colors && product.colors[0]) || null;
+    const lineId = id + (size ? '__s:' + size : '') + (color ? '__c:' + color : '');
     const existing = cart.find(item => item.lineId === lineId);
     if (existing) existing.qty += 1;
-    else cart.push({...product, qty: 1, size, lineId});
+    else cart.push({...product, qty: 1, size, color, lineId});
     updateCart();
     openCart();
   }
@@ -1521,7 +1566,7 @@
           <div class="cart-item-img" style="background-image: url('${(item.imgs && item.imgs[0]) || item.img}');"></div>
           <div class="cart-item-info">
             <h5>${item.name}</h5>
-            ${item.size ? `<div class="cart-item-size">Размер: ${item.size}</div>` : ''}
+            ${(item.color || item.size) ? `<div class="cart-item-size">${[item.color ? 'Цвет: ' + item.color : '', item.size ? 'Размер: ' + item.size : ''].filter(Boolean).join(' · ')}</div>` : ''}
             <div class="cart-item-price">${(item.price * item.qty).toLocaleString('ru-RU')} ₸</div>
             <div class="qty">
               <button onclick="changeQty('${item.lineId}', -1)">−</button>
@@ -1625,7 +1670,7 @@
     const grand = Math.max(0, subtotal - discount);
     let msg = `✦ НОВЫЙ ЗАКАЗ ZINNÁTI\n\n`;
     msg += `Клиент: ${name}\nТелефон: ${phone}\n\nЗАКАЗ:\n`;
-    cart.forEach(item => { msg += `• ${item.name}${item.size ? ' (' + item.size + ')' : ''} × ${item.qty} = ${(item.price * item.qty).toLocaleString('ru-RU')} ₸\n`; });
+    cart.forEach(item => { const opt = [item.color, item.size].filter(Boolean).join(', '); msg += `• ${item.name}${opt ? ' (' + opt + ')' : ''} × ${item.qty} = ${(item.price * item.qty).toLocaleString('ru-RU')} ₸\n`; });
     if (discount > 0 || freeShip) {
       msg += `\nСумма: ${subtotal.toLocaleString('ru-RU')} ₸\n`;
       if (discount > 0) msg += `Промокод ${appliedPromo.code}: −${discount.toLocaleString('ru-RU')} ₸\n`;
