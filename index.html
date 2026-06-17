@@ -264,6 +264,14 @@
   .color-chip.active { border-color: var(--wine); box-shadow: inset 0 0 0 1px var(--wine); }
   .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.12); flex-shrink: 0; }
   .cart-item-size { font-size: 11px; letter-spacing: 0.04em; color: var(--ash); margin: 1px 0 5px; }
+  .cart-item-opts { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 7px; }
+  .cart-opt { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--ash); }
+  .cart-opt select {
+    font-family: var(--sans); font-size: 12px; color: var(--charcoal); background: var(--ivory);
+    border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; cursor: pointer; text-transform: capitalize;
+  }
+  .cart-opt select:focus { outline: none; border-color: var(--charcoal); }
+  .cart-opt-static { font-size: 11px; color: var(--ash); }
 
   /* ---- collection blocks ---- */
   .collection-block { scroll-margin-top: 96px; }
@@ -1544,6 +1552,49 @@
   }
   window.applyPromo = applyPromo; window.removePromo = removePromo;
 
+  function cartItemHTML(item) {
+    const colorOpts = (item.colors && item.colors.length) ? item.colors : [];
+    const sizeOpts = (item.sizeStock && item.sizeStock.length) ? item.sizeStock.map(s => s.size) : [];
+    const colorCtrl = colorOpts.length > 1
+      ? `<label class="cart-opt"><span>Цвет</span><select onchange="changeLineOption('${item.lineId}','color',this.value)">${colorOpts.map(c => `<option${c === item.color ? ' selected' : ''}>${c}</option>`).join('')}</select></label>`
+      : (item.color ? `<span class="cart-opt-static">Цвет: ${item.color}</span>` : '');
+    const sizeCtrl = sizeOpts.length > 1
+      ? `<label class="cart-opt"><span>Размер</span><select onchange="changeLineOption('${item.lineId}','size',this.value)">${sizeOpts.map(s => `<option${s === item.size ? ' selected' : ''}>${s}</option>`).join('')}</select></label>`
+      : (item.size ? `<span class="cart-opt-static">Размер: ${item.size}</span>` : '');
+    const opts = (colorCtrl || sizeCtrl) ? `<div class="cart-item-opts">${colorCtrl}${sizeCtrl}</div>` : '';
+    return `
+        <div class="cart-item">
+          <div class="cart-item-img" style="background-image: url('${(item.imgs && item.imgs[0]) || item.img}');"></div>
+          <div class="cart-item-info">
+            <h5>${item.name}</h5>
+            ${opts}
+            <div class="cart-item-price">${(item.price * item.qty).toLocaleString('ru-RU')} ₸</div>
+            <div class="qty">
+              <button onclick="changeQty('${item.lineId}', -1)">−</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty('${item.lineId}', 1)">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart('${item.lineId}')" aria-label="Удалить">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 01-2 2H9a2 2 0 01-2-2L5 6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          </button>
+        </div>`;
+  }
+  // change colour/size of a cart line; merge if the new combo already exists
+  function changeLineOption(lineId, kind, value) {
+    const item = cart.find(i => i.lineId === lineId);
+    if (!item) return;
+    const size = kind === 'size' ? value : item.size;
+    const color = kind === 'color' ? value : item.color;
+    const newLineId = item.id + (size ? '__s:' + size : '') + (color ? '__c:' + color : '');
+    if (newLineId === lineId) return;
+    const existing = cart.find(i => i.lineId === newLineId);
+    if (existing) { existing.qty += item.qty; cart = cart.filter(i => i.lineId !== lineId); }
+    else { item.size = size; item.color = color; item.lineId = newLineId; }
+    updateCart();
+  }
+  window.changeLineOption = changeLineOption;
+
   function updateCart() {
     const body = document.getElementById('cartBody');
     const form = document.getElementById('cartForm');
@@ -1561,24 +1612,7 @@
         </div>`;
       form.classList.add('hidden');
     } else {
-      body.innerHTML = cart.map(item => `
-        <div class="cart-item">
-          <div class="cart-item-img" style="background-image: url('${(item.imgs && item.imgs[0]) || item.img}');"></div>
-          <div class="cart-item-info">
-            <h5>${item.name}</h5>
-            ${(item.color || item.size) ? `<div class="cart-item-size">${[item.color ? 'Цвет: ' + item.color : '', item.size ? 'Размер: ' + item.size : ''].filter(Boolean).join(' · ')}</div>` : ''}
-            <div class="cart-item-price">${(item.price * item.qty).toLocaleString('ru-RU')} ₸</div>
-            <div class="qty">
-              <button onclick="changeQty('${item.lineId}', -1)">−</button>
-              <span>${item.qty}</span>
-              <button onclick="changeQty('${item.lineId}', 1)">+</button>
-            </div>
-          </div>
-          <button class="cart-item-remove" onclick="removeFromCart('${item.lineId}')" aria-label="Удалить">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 01-2 2H9a2 2 0 01-2-2L5 6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-          </button>
-        </div>
-      `).join('');
+      body.innerHTML = cart.map(cartItemHTML).join('');
       form.classList.remove('hidden');
       renderCartTotals(total);
     }
