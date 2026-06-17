@@ -1589,6 +1589,35 @@
     opt.addEventListener('click', select);
     opt.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(); } });
   });
+
+  // ============ PHONE MASK  +7(776)989-6855 ============
+  function fmtKzPhone(rest) {
+    rest = rest.slice(0, 10);
+    let s = '+7';
+    if (!rest.length) return s;
+    s += '(' + rest.slice(0, 3);
+    if (rest.length < 3) return s;
+    s += ')';
+    if (rest.length === 3) return s;
+    s += rest.slice(3, 6);
+    if (rest.length <= 6) return s;
+    return s + '-' + rest.slice(6, 10);
+  }
+  (function () {
+    const inp = document.getElementById('customerPhone');
+    if (!inp) return;
+    inp.setAttribute('placeholder', '+7(___)___-____');
+    inp.setAttribute('inputmode', 'tel');
+    inp.addEventListener('input', () => {
+      let d = inp.value.replace(/\D/g, '');
+      if (d === '') { inp.value = ''; return; }
+      // drop a leading country code (7/8) only when a full 11-digit number is present;
+      // a bare 10-digit Kazakh number also starts with 7, so don't strip it
+      if (d.length > 10 && (d[0] === '7' || d[0] === '8')) d = d.slice(1);
+      inp.value = fmtKzPhone(d.slice(0, 10));
+    });
+  })();
+
   function buildOrderMessage() {
     const name = document.getElementById('customerName').value || 'не указано';
     const phone = document.getElementById('customerPhone').value || 'не указан';
