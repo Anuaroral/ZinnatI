@@ -987,14 +987,6 @@
   <div class="cart-form hidden" id="cartForm">
     <div class="form-group"><label for="customerName">Ваше имя</label><input type="text" id="customerName" placeholder="Имя Фамилия"></div>
     <div class="form-group"><label for="customerPhone">Телефон</label><input type="tel" id="customerPhone" placeholder="+7 ___ ___ __ __"></div>
-    <div class="form-row">
-      <div class="form-group"><label for="deliveryDate">Дата</label><input type="date" id="deliveryDate"></div>
-      <div class="form-group"><label for="deliveryTime">Время примерки</label>
-        <select id="deliveryTime">
-          <option>10:00 — 12:00</option><option>12:00 — 14:00</option><option>14:00 — 16:00</option><option>16:00 — 18:00</option><option>18:00 — 20:00</option><option>По договорённости</option>
-        </select>
-      </div>
-    </div>
     <div class="form-group"><label for="deliveryAddress">Город / адрес доставки</label><input type="text" id="deliveryAddress" placeholder="Город, улица, дом, кв."></div>
     <div class="form-group"><label for="comment">Комментарий (необязательно)</label><textarea id="comment" rows="2" placeholder="Размер, желаемый оттенок, пожелания"></textarea></div>
     <div class="form-group"><label id="payLabel">Способ оплаты</label>
@@ -1621,8 +1613,6 @@
   function buildOrderMessage() {
     const name = document.getElementById('customerName').value || 'не указано';
     const phone = document.getElementById('customerPhone').value || 'не указан';
-    const date = document.getElementById('deliveryDate').value || 'не указана';
-    const time = document.getElementById('deliveryTime').value;
     const address = document.getElementById('deliveryAddress').value || 'не указан';
     const comment = document.getElementById('comment').value || '—';
     const pay = document.querySelector('.pay-option.selected')?.dataset.pay || 'не выбран';
@@ -1642,7 +1632,7 @@
       if (freeShip)     msg += `Промокод ${appliedPromo.code}: бесплатная доставка\n`;
     }
     msg += `\nИтого: ${grand.toLocaleString('ru-RU')} ₸\n\n`;
-    msg += `Дата/примерка: ${date}, ${time}\nГород/адрес: ${address}\nОплата: ${pay}\n`;
+    msg += `Город/адрес: ${address}\nОплата: ${pay}\n`;
     if (comment !== '—') msg += `\nКомментарий: ${comment}`;
     return msg;
   }
@@ -1881,8 +1871,6 @@
   loadProducts();
   if (!PROMO_API) loadPromos();   // with a server endpoint we never ship the code list to the browser
   updateCart();
-  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
-  document.getElementById('deliveryDate').valueAsDate = tomorrow;
 </script>
 
 </body>
